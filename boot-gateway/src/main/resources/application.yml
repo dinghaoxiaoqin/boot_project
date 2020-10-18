@@ -1,0 +1,132 @@
+#server:
+#  port: 2080
+#  connection-timeout: 10
+#  use-forward-headers: true
+#spring:
+#  application:
+#    name: boot-gateway
+#  main:
+#    allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注
+#  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource
+#  # 初始化Druid
+#    druid:
+#      # mysql数据库接地址
+#      url: jdbc:mysql://localhost:3306/boot?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+#      driver-class-name: com.mysql.jdbc.Driver
+#      username: root
+#      #password: Dinghao@123
+#      password: 123456
+#      initialSize: 5
+#      minIdle: 5
+#      maxActive: 20
+#
+#  cloud:
+#    gateway:
+#      default-filters:
+#         DedupeResponseHeader: Access-Control-Allow-Origin, RETAIN_UNIQUE
+#      discovery:
+#        locator:
+#          enabled: true
+#          lowerCaseServiceId: true
+#      routes:
+#        #唯一标识符
+#        #- id: rrk-product-route
+#          #用户请求需要路由到该服务【指定要路由的服务地址】
+#        #  uri: http://localhost:9088/
+#          #路由断言，路由规则配置
+#        #  predicates:
+#           # - Path=/product/**
+#         # filters:
+#            # 将请求中的第一个路径去掉
+#            #- StripPrefix= 1
+#        #订单微服务
+#        - id: rrk-order-route
+#           #用户请求需要路由到该服务【指定要路由的服务地址】
+#          uri: http://localhost:9096/
+#           #路由断言，路由规则配置
+#          predicates:
+#            - Path=/order/**
+##          filters:
+##            # 将请求中的第一个路径去掉
+##            #- StripPrefix= 1
+##            #局部限流过滤器
+##            - name: RequestRateLimiter #请求数限流  名字不能随便定义
+##              args:
+##              #用户身份唯一识别标志
+##                key-resolver: "#{@ipKeyResolver}"
+##              #每秒钟只允许有几个请求
+##                redis-rate-limiter.replenishRate: 1
+##              #允许并发有4个请求（宽限的个数）
+##                redis-rate-limiter.burstCapacity: 4
+#          #用户微服务
+#        - id: boot-user-route
+#          uri: http://localhost:9092/
+#          predicates:
+#            - Path=/api/order/**,/user/**
+#        #图片微服务
+#        - id: rrk-file-route
+#          uri: http://localhost:1080/
+#          predicates:
+#            - Path=/upload/**
+#        #移动端商品中心
+#        - id: boot-product-route
+#          uri: http://localhost:9091/
+#          predicates:
+#            - Path=/product/**
+#        #认证中心
+#        - id: boot-auth-route
+#          uri: http://localhost:6081/
+#          predicates:
+#            - Path=/oauth/**
+##直接放行的请求url
+#ignored:
+#  urls:
+#    - /upload/addImage
+#    - /upload/addImages
+#    - /oauth/webSmsLogin
+#    - /oauth/appLogin
+#    - /oauth/weiXinLogin
+#    - /product/getLunBos
+#    - /product/getNewProductList
+#    - /product/getBoutiqueRecommendList
+#    - /product/getProductList
+#    - /product/getHotList
+#    - /product/getSuggestList
+#    - /product/getSkuListByname
+#    - /user/getRegionList
+#
+#
+#
+##mybatis-plus的配置信息
+#mybatis-plus:
+#  # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
+#  # 如果是放在resource目录 classpath:/mapper/*Mapper.xml
+#  mapper-locations: classpath*:com/rrk/common/modules/user/mapper/*.xml
+#  type-aliases-package: com.rrk.common.modules.user.entity
+#  global-config:
+#    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+#    id-type: 2
+#    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+#    field-strategy: 1
+#    #驼峰下划线转换
+#    db-column-underline: true
+#    #mp2.3+ 全局表前缀 mp_
+#    #table-prefix: mp_
+#    #刷新mapper 调试神器
+#    refresh-mapper: true
+#    #数据库大写下划线转换
+#    #capital-mode: true
+#    #逻辑删除配置（下面3个配置）
+#    logic-delete-value: 1
+#    logic-not-delete-value: 0
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    cache-enabled: true
+#management:
+#  endpoints:
+#    gateway:
+#      enabled: true
+#    web:
+#      eposure:
+#        include: true
