@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rrk.common.modules.product.dao.TbStockLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rrk.common.modules.product.entity.TbStockLog">
+        <id column="id" property="id" />
+        <result column="employee_id" property="employeeId" />
+        <result column="sku_id" property="skuId" />
+        <result column="stock" property="stock" />
+        <result column="operate_type" property="operateType" />
+        <result column="create_time" property="createTime" />
+        <result column="remarks" property="remarks" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, employee_id, sku_id, stock, operate_type, create_time, remarks
+    </sql>
+
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rrk.common.modules.user.dao.TbOrgMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rrk.common.modules.user.entity.TbOrg">
+        <id column="id" property="id" />
+        <result column="org_pid" property="orgPid" />
+        <result column="org_pids" property="orgPids" />
+        <result column="is_leaf" property="isLeaf" />
+        <result column="org_name" property="orgName" />
+        <result column="address" property="address" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="sort" property="sort" />
+        <result column="level" property="level" />
+        <result column="status" property="status" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, org_pid, org_pids, is_leaf, org_name, address, phone, email, sort, level, status, create_time, update_time
+    </sql>
+
+</mapper>

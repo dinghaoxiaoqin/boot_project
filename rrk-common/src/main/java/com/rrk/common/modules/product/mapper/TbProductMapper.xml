@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rrk.common.modules.product.dao.TbProductMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rrk.common.modules.product.entity.TbProduct">
+        <id column="id" property="id" />
+        <result column="product_name" property="productName" />
+        <result column="product_url" property="productUrl" />
+        <result column="product_stock" property="productStock" />
+        <result column="product_price" property="productPrice" />
+        <result column="product_status" property="productStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, product_name, product_url,product_stock, product_price,product_status,create_time, update_time
+    </sql>
+
+    <select id="selectPro" resultType="java.util.HashMap">
+        SELECT  p.create_time as createTime,SUM(p.product_stock) AS productStock  FROM (SELECT DATE_FORMAT(create_time ,'%Y-%m-%d %H')
+        create_time,product_stock FROM  tb_product WHERE 1= 1  AND create_time
+        BETWEEN '2020-01-11 00:00:00' AND '2020-04-11 23:59:59' ) p GROUP BY p.create_time
+    </select>
+    <update id="updateProductById"  >
+        update tb_product set product_stock = product_stock - #{num}
+        where id  = #{productId}
+    </update>
+
+    <select id="getPro" resultType="com.rrk.common.modules.product.entity.TbProduct">
+
+        select * from tb_product where id = #{productId}
+
+    </select>
+
+</mapper>

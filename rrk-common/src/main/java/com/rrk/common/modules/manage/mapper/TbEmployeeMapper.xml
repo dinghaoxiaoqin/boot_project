@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rrk.common.modules.manage.dao.TbEmployeeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rrk.common.modules.manage.entity.TbEmployee">
+        <id column="id" property="id" />
+        <result column="employee_id" property="employeeId" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="icon" property="icon" />
+        <result column="phone" property="phone" />
+        <result column="is_use" property="isUse" />
+        <result column="employee_address" property="employeeAddress" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, employee_id, username, password,phone,is_use,icon,employee_address, create_time, update_time
+    </sql>
+
+    <select id="getEmployeeList" resultType="com.rrk.common.modules.manage.dto.EmployeeVo">
+        select
+        employees.employee_id as   employeeId,
+        employees.username as username,
+        employees.create_time as createTime,
+        employees.phone as phone,
+        employees.employee_address as employeeAddress,
+        parts.part_id as partId,
+        parts.part_name as partName,
+        parts.part_code as partCode,
+        permissions.permission_id as permissionId,
+        permissions.permission_name as permissionName,
+        permissions.permission_url as permissionUrl,
+        permissions.name as name
+        from
+        tb_employee employees
+        left join tb_employee_part employeePart on employees.employee_id = employeePart.employee_id
+        left join tb_part parts on employeePart.part_id = parts.part_id
+        left join tb_part_permission partPermission on parts.part_id = partPermission.part_id
+        left join tb_permission permissions on partPermission.permission_id = permissions.permission_id
+
+    </select>
+
+    <select id="getPermissionsByUser" resultType="com.rrk.common.modules.manage.entity.TbPermission">
+        select
+        per.permission_id as permissionId,
+        per.parent_id as parentId,
+        per.icon as icon,
+        per.permission_name as permissionName,
+        per.permission_url as permissionUrl,
+        per.order_count as orderCount,
+        per.is_use as isUse,
+        per.name as name
+        from tb_employee em
+        LEFT JOIN tb_employee_part emPart on em.employee_id =emPart.employee_id
+        LEFT JOIN tb_part_permission partPer on emPart.part_id = 	partPer.part_id
+        LEFT JOIN  tb_permission per on partPer.permission_id = per.permission_id
+        where em.employee_id = #{employeeId} and per.is_use = 0
+
+    </select>
+
+</mapper>

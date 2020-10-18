@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rrk.common.modules.order.dao.TbOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rrk.common.modules.order.entity.TbOrder">
+        <id column="id" property="id" />
+        <result column="order_no" property="orderNo" />
+        <result column="user_id" property="userId" />
+        <result column="sku_id" property="skuId" />
+        <result column="address_id" property="addressId" />
+        <result column="express_no" property="expressNo" />
+        <result column="shop_id" property="shopId" />
+        <result column="order_status" property="orderStatus" />
+        <result column="pay_type" property="payType" />
+        <result column="amount" property="amount" />
+        <result column="buy_num" property="buyNum" />
+        <result column="coupon_no" property="couponNo" />
+        <result column="remarks" property="remarks" />
+        <result column="create_time" property="createTime" />
+        <result column="pay_time" property="payTime" />
+        <result column="over_time" property="overTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="send_time" property="sendTime" />
+        <result column="finish_time" property="finishTime" />
+    </resultMap>
+
+    <resultMap id="getOrderSkuList" type="com.rrk.common.modules.order.dto.OrderInfo">
+        <id column="orderNo" property="orderNo"></id>
+        <result column="userId" property="userId" />
+        <result column="orderStatus" property="orderStatus" />
+        <result column="buyNum" property="buyNum" />
+        <result column="amount" property="amount" />
+        <collection property="orderSkuInfos" ofType="com.rrk.common.modules.order.dto.OrderSkuInfo">
+            <result column="skuId" property="skuId" />
+            <result column="productName" property="productName" />
+            <result column="skuName" property="skuName" />
+            <result column="skuImage" property="skuImage" />
+            <result column="buyNum" property="buyNum" />
+            <result column="salePrice" property="salePrice" />
+            <result column="price" property="price" />
+        </collection>
+
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, order_no, user_id, sku_id, address_id, express_no, shop_id, order_status, pay_type, amount, buy_num, coupon_no, remarks, create_time,over_time, pay_time, update_time, send_time,finish_time
+    </sql>
+
+    <select id="getOrderInfoList" resultMap="getOrderSkuList">
+       select
+        tbOrder.user_id as userId,
+        tbOrder.order_no as orderNo,
+        tbOrder.order_status as orderStatus,
+        tbOrder.buy_num as buyNum,
+        tbOrder.amount as amount,
+        orderSku.sku_id as skuId,
+        orderSku.sku_name as productName,
+        orderSku.sku_name as skuName,
+        orderSku.sku_image as skuImage,
+        orderSku.sku_num as buyNum,
+        orderSku.sale_price as salePrice,
+        orderSku.price as price
+        from tb_order tbOrder ,order_sku orderSku where tbOrder.user_id = #{userId} and orderSku.order_no = tbOrder.order_no
+        order by tbOrder.create_time desc limit #{pageNo},#{pageSize}
+    </select>
+
+</mapper>

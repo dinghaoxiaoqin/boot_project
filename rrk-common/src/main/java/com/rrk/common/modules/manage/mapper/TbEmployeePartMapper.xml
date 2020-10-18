@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rrk.common.modules.manage.dao.TbEmployeePartMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rrk.common.modules.manage.entity.TbEmployeePart">
+        <id column="id" property="id" />
+        <result column="employee_id" property="employeeId" />
+        <result column="part_id" property="partId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, employee_id, part_id, create_time, update_time
+    </sql>
+
+    <select id="getPartByEmployeeId" resultType="com.rrk.common.modules.manage.entity.TbPart">
+        SELECT
+        part.part_id AS partId,
+        part.is_use as isUse,
+        part.part_code as partCode,
+        part.part_name as partName,
+        part.part_sort as partSort
+        from tb_employee_part emPart
+        left join tb_part part on emPart.part_id =part.part_id
+
+        where emPart.employee_id = #{employeeId}
+    </select>
+
+</mapper>

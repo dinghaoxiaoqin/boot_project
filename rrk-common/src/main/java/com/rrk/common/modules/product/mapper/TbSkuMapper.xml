@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rrk.common.modules.product.dao.TbSkuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rrk.common.modules.product.entity.TbSku">
+        <id column="id" property="id" />
+        <result column="spu_id" property="spuId" />
+        <result column="title" property="title" />
+        <result column="images" property="images" />
+        <result column="price" property="price" />
+        <result column="sale_price" property="salePrice" />
+        <result column="is_vip" property="isVip" />
+        <result column="indexes" property="indexes" />
+        <result column="stock" property="stock" />
+        <result column="sale_count" property="saleCount" />
+        <result column="own_spec" property="ownSpec" />
+        <result column="enable" property="enable" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, spu_id, title, images, price,sale_price,is_vip, indexes, stock, sale_count, own_spec, enable, create_time, update_time
+    </sql>
+    <select id="getProductDetail" resultType="com.rrk.common.modules.product.dto.webdto.ProductDetailDto">
+        select
+        sku.id as skuId,
+        sku.title as skuName,
+        spu.sub_title  as subTitle,
+        sku.images as images,
+        sku.price as price,
+        sku.sale_price as salePrice,
+        sku.is_vip as isVip,
+        sku.stock as stock,
+        sku.sale_count as saleCount,
+        sku.own_spec as ownSpec,
+        sku.enable as enable,
+        spu.spu_descrition as spuDescrition,
+        sku.create_time as createTime
+        from tb_sku sku
+        left join tb_spu spu on sku.spu_id = spu.id
+        where 1=1
+        and sku.id = #{skuId}  and spu.valid = 1 and sku.enable = 1
+    </select>
+
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rrk.common.modules.product.dao.TbBrandMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rrk.common.modules.product.entity.TbBrand">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="image" property="image" />
+        <result column="letter" property="letter" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, image, letter
+    </sql>
+
+    <select id="getBrandList" resultType="com.rrk.common.modules.product.dto.BrandCategoryDto">
+        select
+        brand.id as id,
+        brand.`name` as name,
+        brand.image as image,
+        categoryBrand.category_id as categoryId,
+        category.`name` as categoryName,
+        brand.letter as letter
+        from tb_brand brand LEFT JOIN tb_category_brand categoryBrand
+        on brand.id = categoryBrand.brand_id
+        LEFT JOIN tb_category category on categoryBrand.category_id =category.id
+        where
+        1=1
+        <if test="keyword != null and keyword != ''">
+           and (brand.name like concat('%',#{keyword},'%') or category.name like concat('%',#{keyword},'%'))
+        </if>
+        ORDER BY brand.id asc limit #{pageNo},#{pageSize}
+    </select>
+    
+    <select id="getBrandCount" resultType="long">
+        select
+        count(brand.id)
+        from tb_brand brand LEFT JOIN tb_category_brand categoryBrand
+        on brand.id = categoryBrand.brand_id
+        LEFT JOIN tb_category category on categoryBrand.category_id =category.id
+        where 1=1
+        <if test="keyword != null and keyword != ''">
+            and ( brand.name like concat('%',#{keyword},'%') or category.name like concat('%',#{keyword},'%'))
+        </if>
+    </select>
+
+</mapper>

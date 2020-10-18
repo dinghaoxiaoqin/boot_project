@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.rrk.common.modules.product.dao.TbSpuMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="com.rrk.common.modules.product.entity.TbSpu">
+		<id column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="sub_title" property="subTitle" />
+		<result column="cid1" property="cid1" />
+		<result column="cid2" property="cid2" />
+		<result column="cid3" property="cid3" />
+		<result column="brand_id" property="brandId" />
+		<result column="saleable" property="saleable" />
+		<result column="valid" property="valid" />
+		<result column="spu_descrition" property="spuDescrition" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+	</resultMap>
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id, title, sub_title, cid1, cid2, cid3, brand_id, saleable,
+		valid,
+		spu_descrition, create_time, update_time
+	</sql>
+	<select id="getSpuList"
+		resultType="com.rrk.common.modules.product.dto.SpuDto">
+		select
+		spu.id as id,
+		spu.title as title,
+		spu.sub_title as
+		subTitle,
+		spu.cid1 as cid1,
+		spu.cid2 as cid2,
+		spu.cid3 as cid3,
+		spu.brand_id as brandId,
+		brand.`name` as brandName,
+		spu.saleable as
+		saleable,
+		spu.valid as valid,
+		spu.spu_descrition as spuDescrition,
+		spu.create_time as createTime
+		from tb_spu spu
+		left join tb_brand brand
+		on spu.brand_id = brand.id
+		where
+		1= 1
+        <if test="keyword != null and keyword != ''">
+          and spu.title like  concat('%',#{keyword},'%')
+        </if>
+		ORDER BY spu.create_time asc limit
+		#{pageNo} ,#{pageSize}
+
+	</select>
+	<select id="getSpuCount" resultType="long">
+		select
+	    count(spu.id)
+		from tb_spu spu
+		left join tb_brand brand
+		on spu.brand_id = brand.id
+		where
+		1= 1
+		<if test="keyword != null and keyword != ''">
+			and spu.title like  concat('%',#{keyword},'%')
+		</if>
+	</select>
+
+</mapper>
