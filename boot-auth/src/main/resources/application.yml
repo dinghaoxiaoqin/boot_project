@@ -1,0 +1,105 @@
+#server:
+#  port: 6081
+#spring:
+#  application:
+#    name: boot-auth
+#  cloud:
+#    client:
+#      ip-address: 127.0.0.1
+#  redis:
+#    host: 47.84.81.128
+#    timeout: 3000
+#    password:
+#    port: 6379
+#    database: 0
+#    jedis:
+#      pool:
+#        # 连接池中的最小空闲连接
+#        min-idle: 100
+#        # 连接池中的最大空闲连接
+#        max-idle: 500
+#        # 连接池最大连接数（使用负值表示没有限制）
+#        max-active: 2000
+#        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+#        max-wait: 10000
+#  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    # 初始化Druid
+#    druid:
+#      # mysql数据库接地址
+#      url: jdbc:mysql://localhost:3306/boot?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+#      driver-class-name: com.mysql.jdbc.Driver
+#      username: root
+#      password: 123456
+#      initialSize: 5
+#      minIdle: 5
+#      maxActive: 20
+#  main:
+#    allow-bean-definition-overriding: true
+#
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:9099/eureka/
+#  instance:
+#    prefer-ip-address: true
+#    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+#
+##keyProp:
+##  key-store:
+##    location: classpath:/changgou.jks  #证书路径
+##    secret: changgou  #秘钥
+##    alias: changgou   #证书别名
+##    password: changgou  #证书密钥
+#
+#
+#auth:
+#  ttl: 3600  #token存储到redis的过期时间
+#  clientId: dinghao
+#  clientSecret: dinghao
+#  cookieDomain: localhost
+#  cookieMaxAge: -1
+#  #本地证书和秘钥证书的密码配置
+#encrypt:
+#  key-store:
+#    location: classpath:/dinghao.jks
+#    secret: dinghao
+#    alias: dinghao    #证书别名
+#    password: dinghao
+#
+#
+#
+##mybatis-plus的配置信息
+#mybatis-plus:
+#  # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
+#  # 如果是放在resource目录 classpath:/mapper/*Mapper.xml
+#  mapper-locations: classpath*:com/rrk/modules/*/mapper/*.xml
+#  global-config:
+#    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+#    id-type: 2
+#    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+#    field-strategy: 1
+#    #驼峰下划线转换
+#    db-column-underline: true
+#    #mp2.3+ 全局表前缀 mp_
+#    #table-prefix: mp_
+#    #刷新mapper 调试神器
+#    refresh-mapper: true
+#    #数据库大写下划线转换
+#    #capital-mode: true
+#    #逻辑删除配置（下面3个配置）
+#    logic-delete-value: 1
+#    logic-not-delete-value: 0
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    cache-enabled: true
+#
+## 阿里云配置信息
+#aliyun:
+#  # common 配置信息
+#  accessKeyId: LTAI4GJqPYSvT9LNkQY9ftQs
+#  accessKeySecret: D3itjZpjcRd9oUhL9VWbep3A2YI5SF
+#  # SMS 短信服务
+#  regionId: cn-hangzhou
+#  signName: boot后台管理系统
+#  templateCode: SMS_197897078
