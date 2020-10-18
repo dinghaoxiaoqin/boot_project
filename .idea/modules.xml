@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/boot-gateway/boot-gateway.iml" filepath="$PROJECT_DIR$/boot-gateway/boot-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/boot-web/boot-order/boot-order.iml" filepath="$PROJECT_DIR$/boot-web/boot-order/boot-order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/boot-web/boot-product/boot-product.iml" filepath="$PROJECT_DIR$/boot-web/boot-product/boot-product.iml" />
+      <module fileurl="file://$PROJECT_DIR$/boot-web/boot-user/boot-user.iml" filepath="$PROJECT_DIR$/boot-web/boot-user/boot-user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/boot-web/boot-web.iml" filepath="$PROJECT_DIR$/boot-web/boot-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rrk-manage/employee-manage/employee-manage.iml" filepath="$PROJECT_DIR$/rrk-manage/employee-manage/employee-manage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rrk-manage/product-manage/product-manage.iml" filepath="$PROJECT_DIR$/rrk-manage/product-manage/product-manage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rrk-common/rrk-common.iml" filepath="$PROJECT_DIR$/rrk-common/rrk-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rrk-file/rrk-file.iml" filepath="$PROJECT_DIR$/rrk-file/rrk-file.iml" />
+      <module fileurl="file://$PROJECT_DIR$/manage-gateway/rrk-gateway.iml" filepath="$PROJECT_DIR$/manage-gateway/rrk-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rrk-manage/rrk-manage.iml" filepath="$PROJECT_DIR$/rrk-manage/rrk-manage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rrk-parent.iml" filepath="$PROJECT_DIR$/rrk-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/boot-auth/rrk-user-oauth.iml" filepath="$PROJECT_DIR$/boot-auth/rrk-user-oauth.iml" />
+    </modules>
+  </component>
+</project>
