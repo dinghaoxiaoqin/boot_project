@@ -1,0 +1,21 @@
+#server:
+#  port: 1080
+#
+#spring:
+#  application:
+#    name: rrk-file
+#  http:
+#    multipart:
+#      enabled:  false
+#
+#
+##连接图片服务器
+#ftp:
+#  address: 127.0.0.1
+#  port: 21
+#  #username: admin
+#  #password: 123456
+#  #bastPath: /home/admin/www/images
+#  #imageBaseUrl: http://gogs.com:11111
+#  bastPath: D:/images
+#  imageBaseUrl: http://127.0.0.1:5080
