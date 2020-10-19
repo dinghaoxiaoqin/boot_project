@@ -1,0 +1,44 @@
+server:
+  port: 9096
+spring:
+  application:
+    name: boot-order-dev
+
+  cloud:
+    nacos:
+      #注册中心
+      discovery:
+        server-addr: boot-nacos-server:8848
+      #配置中心
+      config:
+        server-addr: boot-nacos-server:8848
+        group: DEFAULT_GROUP
+        # prefix: ${spring.application.name}
+        file-extension: yml
+        namespace: 0189e09a-7615-47de-9454-4dfd85d8b220
+    sentinel:
+      transport:
+        dashboard: boot-sentinel-server:8858
+        port: 8719
+        clientIp: 192.168.248.1
+      datasource:
+        ds1:
+          nacos:
+            server-addr: boot-nacos-server:8848
+            dataId: boot-order-dev
+            groupId: DEFAULT_GROUP
+            data-type: json
+            #限流规则持久化
+            rule-type: flow
+        ds2:
+          nacos:
+            server-addr: boot-nacos-server:8848
+            dataId: order-degrade-dev
+            groupId: DEFAULT_GROUP
+            data-type: json
+            #降级规则持久化
+            rule-type: degrade
+        # 取消延迟加载
+      eager: true
+
+
