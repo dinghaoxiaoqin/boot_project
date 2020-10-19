@@ -1,0 +1,175 @@
+#server:
+#  port: 3080
+##  use-forward-headers: true
+##  servlet:
+##    context-path: /order
+#
+#
+##在这里我没有写driver-class-name: com.mysql.jdbc.Driver这个驱动被弃用了  使用新版com.mysql.cj.jdbc.Driver
+##控制台提示说自动帮我们找相应的驱动，一般无需手动加载，所以我注释掉了
+#spring:
+#
+#  application:
+#    name: product-manage
+#  cloud:
+#    client:
+#      ip-address: 127.0.0.1
+#  main:
+#    allow-bean-definition-overriding: true
+#  http:
+#    encoding:
+#      enabled: true
+#      charset: UTF-8
+#      force: true
+#  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    # 初始化Druid
+#    druid:
+#      # mysql数据库接地址
+#      url: jdbc:mysql://localhost:3306/boot?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+#      driver-class-name: com.mysql.jdbc.Driver
+#      username: root
+#      password: "123456"
+#      initialSize: 5
+#      minIdle: 5
+#      maxActive: 20
+#      #security的配置信息
+#  security:
+#    loginType: json
+#  #redis的配置信息
+#  redis:
+#    host: 47.94.81.128
+#    timeout: 3000
+#    password:
+#    port: 6379
+#    database: 0
+#    jedis:
+#      pool:
+#        max-active: 8 # 连接池最大连接数（使用负值表示没有限制）
+#        max-idle: 8   # 连接池中的最大空闲连接
+#        max-wait: -1  # 连接池最大阻塞等待时间（使用负值表示没有限制)
+#        min-idle: 0
+#  #rabbitmq的相关配置(生产者)
+#  rabbitmq:
+#    host: 47.94.81.128
+#    port: 5672
+#    username: dinghao
+#    password: 123456
+#    virtual-host: /my_vhost
+#    connection-timeout: 300000
+#    publisher-confirms: true  #开启发送确认
+#    publisher-returns: true  #开启发送失败退回
+#    template:
+#      mandatory=true: true #需设置mandatory=true,否则不回回调,消息就丢了)
+#    #开启ack
+#    listener:
+#      direct:
+#        acknowledge-mode: manual
+#    simple:
+#      acknowledge-mode: manual
+#  cache:
+#    connection:
+#    # 缓存模式： connection channel
+#    mode: connection
+#    size: 100
+#    channel:
+#      checkout-timeout: 1000000
+#      size: 1000
+#
+#
+##mybatis-plus的配置信息
+#mybatis-plus:
+#  # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
+#  # 如果是放在resource目录 classpath:/mapper/*Mapper.xml
+#  #classpath*:com/rrk/common/modules/product/mapper/*.xml
+#  mapper-locations: classpath*:com/rrk/common/modules/product/mapper/*.xml
+#  type-aliases-package: com.rrk.common.modules.product.entity
+#  global-config:
+#    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+#    id-type: 2
+#    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+#    field-strategy: 1
+#    #驼峰下划线转换
+#    db-column-underline: true
+#    #mp2.3+ 全局表前缀 mp_
+#    #table-prefix: mp_
+#    #刷新mapper 调试神器
+#    refresh-mapper: true
+#    #数据库大写下划线转换
+#    #capital-mode: true
+#    #逻辑删除配置（下面3个配置）
+#    logic-delete-value: 1
+#    logic-not-delete-value: 0
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    cache-enabled: true
+##忽略需要认证才能访问的url
+#
+##elasticsearch的配置
+#elasticSearch:
+#  hostlist: 127.0.0.1:9200
+#  client:
+#    connectNum: 10
+#    connectPerRoute: 50
+#
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:9099/eureka/  #,http://192.168.43.9:9098/eureka/
+#  instance:
+#    prefer-ip-address: true
+#    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+#
+#
+#management:
+#  endpoints:
+#    web:
+#      eposure:
+#        include: env ,health ,refresh, info
+#
+#feign:
+#  hystrix:
+#    enabled: false #feign开启hystrix支持
+#    threadpool:
+#      default:
+#        coreSize: 200  #核心线程池数量
+#        maxQueueSize: 200               #最大队列数
+#        queueSizeRejectionThreshold: 160   #队列拒绝阈值设置
+#    shareSecurityContext: true
+#    command:
+#      default:
+#        circuitBreaker:
+#          sleepWindowInMilliseconds: 100000
+#          forceClosed: true
+#          requestVolumeThreshold: 2000 #熔断器失败的个数==进入熔断器的请求达到2000时服务降级（之后的请求直接进入熔断器）
+#        fallback:
+#          isolation:
+#            semaphore:
+#              maxConcurrentRequests: 100  #回退最大线程数
+#        execution:
+#          isolation:
+#            thread:
+#              timeoutInMilliseconds: 600000 #请求处理的超时时间
+#          timeout:
+#            enabled: false
+#  compression:
+#    request:
+#      enabled: true
+#      mime-types: text/xml,application/xml,application/json # 配置压缩支持的MIME
+#      min-request-size: 2048  # 配置压缩数据大小的下限
+#    response:
+#      enabled: true # 配置响应GZIP压缩
+#
+##robbit 的相关配置
+#robbin:
+#  ConnectTimeout: 13000
+#  # Read timeout used by Apache HttpClient
+#  ReadTimeout: 3000
+#
+##lcn-tc配置
+#tx-lcn:
+#  client:
+#    manager-address: 127.0.0.1:8070
+#  springcloud:
+#    loadbalance:
+#      enabled: true
