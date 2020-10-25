@@ -1,3 +1,4 @@
+#!/bin/bash -ilex
 //git 凭证id
 def git_auth = "dcb13c80-af50-422d-acf2-e244089fcf9a"
 //git的url地址
