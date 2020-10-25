@@ -8,4 +8,8 @@ node {
      checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]])
   }
 
+  stage('安装 公共工程 common'){
+   sh "mvn -f rrk-common clean install"
+  }
+
 }
