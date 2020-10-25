@@ -1,4 +1,4 @@
-#!/bin/sh -l
+
 //git 凭证id
 def git_auth = "dcb13c80-af50-422d-acf2-e244089fcf9a"
 //git的url地址
@@ -8,7 +8,6 @@ node {
   stage('拉取代码'){
      checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]])
   }
-
   stage('安装 公共工程 common'){
    sh "mvn -f rrk-common clean install"
   }
