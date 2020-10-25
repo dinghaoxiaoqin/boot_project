@@ -9,8 +9,12 @@ node {
   stage('拉取代码'){
      checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]])
   }
-  stage('安装 公共工程 common'){
+  stage('编译 公共工程 common'){
    sh "mvn -f rrk-common clean install"
   }
+
+   stage('编译 打包微服务工程'){
+     sh "mvn -f ${boot-docker} clean package"
+    }
 
 }
