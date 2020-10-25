@@ -14,7 +14,7 @@ node {
   }
 
    stage('编译 打包微服务工程'){
-     sh "mvn -f ${boot-docker} clean package"
+     sh "mvn -f ${boot-docker} clean install"
     }
 
 }
