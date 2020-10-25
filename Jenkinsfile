@@ -13,7 +13,7 @@ node {
    sh "mvn -f rrk-common clean install"
   }
    stage('编译 打包微服务工程'){
-     sh "mvn -f ${boot-docker} clean install"
+     sh "mvn -f boot-user clean install"
     }
 
 }
