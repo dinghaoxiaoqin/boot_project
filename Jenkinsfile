@@ -33,7 +33,7 @@ node {
   stage('上传镜像'){
      def name = "${boot_docker}"
      echo name
-      def splitName =  name.tokenise("/")
+      def splitName =  name.tokenise('/')
      echo "分组的数组："+splitName
      echo "获取第二个值："+splitName[1]
      def imageName = ""
