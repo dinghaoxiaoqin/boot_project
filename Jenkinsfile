@@ -13,11 +13,13 @@ node {
    sh "mvn -f rrk-common clean install"
   }
   stage('编译 打包微服务工程'){
-     echo "选择的是哪个模块"
-     echo "${boot_docker}"
-    // sh "mvn -f boot-web/boot-user clean install"
+     echo "编译 微服务工程"
 
-     //sh "mvn -f boot-web/boot-user clean package"
+     sh "mvn -f ${boot_docker} clean install"
+
+     echo "打包微服务工程"
+
+     sh "mvn -f ${boot_docker} clean package"
     }
 
 }
