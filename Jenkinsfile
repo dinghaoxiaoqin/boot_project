@@ -42,7 +42,7 @@ node {
         echo "${boot_docker}:${tag}"
         imageName = "${boot_docker}:${tag}"
      } else{
-         def splitName =  name.tokenise("/")
+     //    def splitName =  name.tokenise("/")
          echo "分组的数组："+splitName
          echo "获取第二个值："+splitName[1]
           imageName = "${boot_docker}:${tag}"
