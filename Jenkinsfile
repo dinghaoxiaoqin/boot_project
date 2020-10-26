@@ -41,7 +41,7 @@ node {
          def splitName =  name.tokenise("/")
          echo "分组的数组："+splitName
          echo "获取第二个值："+splitName[1]
-          def imageName = "${boot_docker}:${tag}"
+          imageName = "${boot_docker}:${tag}"
      }
 
      //定义镜像的名字
