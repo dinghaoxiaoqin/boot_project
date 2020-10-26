@@ -19,7 +19,7 @@ node {
 
      echo "打包微服务工程"
 
-     sh "mvn -f ${boot_docker} clean package"
+     sh "mvn -f ${boot_docker} clean package dockerfile:build"
     }
 
 }
