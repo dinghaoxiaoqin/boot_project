@@ -32,34 +32,27 @@ node {
 
   stage('上传镜像'){
      def name = "${boot_docker}"
-     echo name
-     String[] splitName =  name.tokenize('/')
-     echo "分组的数组："+splitName
-     echo "获取第二个值："+splitName[1]
      def imageName = ""
-
      if(name == "boot-auth" || name == "boot-gateway" || name == "rrk-file" || name== "manage-gateway"){
         echo "${boot_docker}:${tag}"
         imageName = "${boot_docker}:${tag}"
      } else{
-     //    def splitName =  name.tokenise("/")
-         echo "分组的数组："+splitName
-         echo "获取第二个值："+splitName[1]
-          imageName = "${boot_docker}:${tag}"
+         String[] splitName =  name.tokenize('/')
+        // echo "分组的数组："+splitName
+        // echo "获取第二个值："+splitName[1]
+          imageName = splitName[1]+":${tag}"
      }
-
      //定义镜像的名字
-
-    // sh "docker tag ${imageName} ${harbor_url}/${harbor_project}/${imageName}"
+     sh "docker tag ${imageName} ${harbor_url}/${harbor_project}/${imageName}"
      //推送镜像到harbor
-    // withCredentials([usernamePassword(credentialsId: "${harbor_auth}", passwordVariable: 'password', usernameVariable: 'username')]) {
-         //登录harbor
-      //   sh "docker login -u ${username} -p ${password} ${harbor_url}"
-         //镜像上传到harbor
-      //   sh "docker push ${harbor_url}/${harbor_project}/${imageName}"
+     withCredentials([usernamePassword(credentialsId: "${harbor_auth}", passwordVariable: 'password', usernameVariable: 'username')]) {
+      //登录harbor
+     sh "docker login -u ${username} -p ${password} ${harbor_url}"
+      //镜像上传到harbor
+     sh "docker push ${harbor_url}/${harbor_project}/${imageName}"
 
-       //  sh "echo 镜像上传成功"
-    // }
+     sh "echo 镜像上传成功"
+     }
     }
 
 }
