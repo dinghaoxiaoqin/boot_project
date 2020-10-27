@@ -52,8 +52,6 @@ node {
      sh "docker push ${harbor_url}/${harbor_project}/${imageName}"
 
      sh "echo 镜像上传成功"
-
-
         }
       //服务部署
        sshPublisher(publishers: [sshPublisherDesc(configName: "master_192.168.248.102", transfers: [sshTransfer(cleanRemote: false, excludes: "", execCommand: "/opt/jenkins_shell/deploy.sh $harbor_url $harbor_project $boot_docker $tag $port", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: "[, ]+", remoteDirectory: "", remoteDirectorySDF: false, removePrefix: "", sourceFiles: "")], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
