@@ -11,8 +11,8 @@ def harbor_url = "47.94.81.128:8001"
 def harbor_project = "bootproject"
 //harbor的凭据id
 def harbor_auth = "11fe98d8-eb9f-4290-b61b-d8ba573c439c"
-
-
+//构建的微服务名称
+def boot_name = ""
 node {
   stage('拉取代码'){
      checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]])
@@ -35,12 +35,14 @@ node {
      def imageName = ""
      if(name == "boot-auth" || name == "boot-gateway" || name == "rrk-file" || name== "manage-gateway"){
         echo "${boot_docker}:${tag}"
-        imageName = "${boot_docker}:${tag}"
+        imageName = name+":${tag}"
+        boot_name = name
      } else{
          String[] splitName =  name.tokenize('/')
         // echo "分组的数组："+splitName
         // echo "获取第二个值："+splitName[1]
           imageName = splitName[1]+":${tag}"
+          boot_name = splitName[1]
      }
      //定义镜像的名字
      sh "docker tag ${imageName} ${harbor_url}/${harbor_project}/${imageName}"
@@ -54,7 +56,7 @@ node {
      sh "echo 镜像上传成功"
         }
       //服务部署
-       sshPublisher(publishers: [sshPublisherDesc(configName: "master_192.168.248.102", transfers: [sshTransfer(cleanRemote: false, excludes: "", execCommand: "/opt/jenkins_shell/deploy.sh $harbor_url $harbor_project $boot_docker $tag $port", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: "[, ]+", remoteDirectory: "", remoteDirectorySDF: false, removePrefix: "", sourceFiles: "")], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+       sshPublisher(publishers: [sshPublisherDesc(configName: "master_192.168.248.102", transfers: [sshTransfer(cleanRemote: false, excludes: "", execCommand: "/opt/jenkins_shell/deploy.sh $harbor_url $harbor_project $boot_name $tag $port", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: "[, ]+", remoteDirectory: "", remoteDirectorySDF: false, removePrefix: "", sourceFiles: "")], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
     }
 
 }
