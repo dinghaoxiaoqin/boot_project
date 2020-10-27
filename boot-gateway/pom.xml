@@ -119,10 +119,10 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
+<!--                <configuration>-->
 <!--                    <classifier>exec</classifier>-->
-                    <includeSystemScope>true</includeSystemScope>
-                </configuration>
+<!--                    <includeSystemScope>true</includeSystemScope>-->
+<!--                </configuration>-->
             </plugin>
             <!--引入读取Dockerfile脚本文件的配置-->
             <plugin>
