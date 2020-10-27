@@ -122,6 +122,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
             <!--引入读取Dockerfile脚本文件的配置-->
             <plugin>
