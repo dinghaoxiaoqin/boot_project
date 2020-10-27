@@ -112,9 +112,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-<!--                <configuration>-->
-<!--                    <classifier>exec</classifier>-->
-<!--                </configuration>-->
                 <executions>
                     <execution>
                         <goals>
@@ -123,6 +120,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <classifier>exec</classifier>
                     <includeSystemScope>true</includeSystemScope>
                 </configuration>
             </plugin>
