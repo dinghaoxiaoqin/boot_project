@@ -30,7 +30,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.1.10.RELEASE</spring-boot.version>
-        <nacos.version>0.2.2.RELEASE</nacos.version>
+        <nacos.version>0.2.1.RELEASE</nacos.version>
         <java.version>1.8</java.version>
         <jwt.version>1.0.10.RELEASE</jwt.version>
         <hutool.version>4.6.8</hutool.version>
