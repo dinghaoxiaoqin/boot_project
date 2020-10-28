@@ -61,16 +61,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <includeSystemScope>true</includeSystemScope>
-                </configuration>
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>repackage</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <includeSystemScope>true</includeSystemScope>-->
+<!--                </configuration>-->
             </plugin>
           <!--引入读取Dockerfile脚本文件的配置-->
             <plugin>
