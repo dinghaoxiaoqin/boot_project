@@ -86,14 +86,14 @@
                     <groupId>org.springframework</groupId>
                     <artifactId>spring-web</artifactId>
                 </exclusion>
-                <exclusion><!-- 这里是排除掉webmvc -->
-                    <groupId>com.alibaba.cloud</groupId>
-                    <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-                </exclusion>
-                <exclusion><!-- 这里是排除掉webmvc -->
-                    <groupId>com.alibaba.csp</groupId>
-                    <artifactId>sentinel-datasource-nacos</artifactId>
-                </exclusion>
+<!--                <exclusion>&lt;!&ndash; 这里是排除掉sentinel &ndash;&gt;-->
+<!--                    <groupId>com.alibaba.cloud</groupId>-->
+<!--                    <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>&lt;!&ndash; 这里是排除掉sentinel &ndash;&gt;-->
+<!--                    <groupId>com.alibaba.csp</groupId>-->
+<!--                    <artifactId>sentinel-datasource-nacos</artifactId>-->
+<!--                </exclusion>-->
             </exclusions>
         </dependency>
 
