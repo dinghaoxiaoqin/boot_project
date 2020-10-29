@@ -16,7 +16,7 @@ def aliyun_project = "dockerdepository"
 //harbor的凭据id
 //def harbor_auth = "11fe98d8-eb9f-4290-b61b-d8ba573c439c"
 //阿里云仓库的凭据id
-del aliyun_auth = "0c9d941e-c2f6-44b8-a8a5-abfc3a985340"
+def aliyun_auth = "0c9d941e-c2f6-44b8-a8a5-abfc3a985340"
 //构建的微服务名称
 def boot_name = ""
 node {
@@ -51,18 +51,18 @@ node {
           boot_name = splitName[1]
      }
      //定义镜像的名字
-     sh "docker tag ${imageName} ${aliyun_url}/${aliyun_project}/${imageName}:${tag}"
+     sh "docker tag ${imageName} ${aliyun_url}/${aliyun_project}/${imageName}"
      //推送镜像到harbor
      withCredentials([usernamePassword(credentialsId: "${aliyun_auth}", passwordVariable: 'password', usernameVariable: 'username')]) {
       //登录阿里云
      sh "docker login --username=${username} registry.cn-hangzhou.aliyuncs.com"
       //镜像上传到阿里云仓库
-     sh "docker push ${aliyun_url}/${aliyun_project}/${imageName}:${tag}"
+     sh "docker push ${aliyun_url}/${aliyun_project}/${imageName}"
 
      sh "echo 镜像上传成功"
         }
       //服务部署
-       sshPublisher(publishers: [sshPublisherDesc(configName: "master_192.168.248.102", transfers: [sshTransfer(cleanRemote: false, excludes: "", execCommand: "/opt/jenkins_shell/deploy.sh $harbor_url $harbor_project $boot_name $tag $port", execTimeout: 960000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: "[, ]+", remoteDirectory: "", remoteDirectorySDF: false, removePrefix: "", sourceFiles: "")], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+       sshPublisher(publishers: [sshPublisherDesc(configName: "master_192.168.248.102", transfers: [sshTransfer(cleanRemote: false, excludes: "", execCommand: "/opt/jenkins_shell/deploy.sh $aliyun_url $aliyun_project $boot_name $tag $port", execTimeout: 960000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: "[, ]+", remoteDirectory: "", remoteDirectorySDF: false, removePrefix: "", sourceFiles: "")], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
     }
 
 }
