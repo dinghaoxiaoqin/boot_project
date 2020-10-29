@@ -6,11 +6,17 @@ def git_url = "https://github.com/dinghaoxiaoqin/boot_project.git"
 //镜像的版本号
 def tag = "latest"
 //harbor 的地址
-def harbor_url = "47.94.81.128:8001"
+//def harbor_url = "47.94.81.128:8001"
+//阿里云镜像仓库地址
+def aliyun_url = "registry.cn-hangzhou.aliyuncs.com/dhqxq/dockerdepository"
 //镜像库的名称
-def harbor_project = "bootproject"
+//def harbor_project = "bootproject"
+//阿里云镜像库名称
+def aliyun_project = "dockerdepository"
 //harbor的凭据id
-def harbor_auth = "11fe98d8-eb9f-4290-b61b-d8ba573c439c"
+//def harbor_auth = "11fe98d8-eb9f-4290-b61b-d8ba573c439c"
+//阿里云仓库的凭据id
+del aliyun_auth = "0c9d941e-c2f6-44b8-a8a5-abfc3a985340"
 //构建的微服务名称
 def boot_name = ""
 node {
@@ -45,13 +51,13 @@ node {
           boot_name = splitName[1]
      }
      //定义镜像的名字
-     sh "docker tag ${imageName} ${harbor_url}/${harbor_project}/${imageName}"
+     sh "docker tag ${imageName} ${aliyun_url}/${aliyun_project}/${imageName}:${tag}"
      //推送镜像到harbor
-     withCredentials([usernamePassword(credentialsId: "${harbor_auth}", passwordVariable: 'password', usernameVariable: 'username')]) {
-      //登录harbor
-     sh "docker login -u ${username} -p ${password} ${harbor_url}"
-      //镜像上传到harbor
-     sh "docker push ${harbor_url}/${harbor_project}/${imageName}"
+     withCredentials([usernamePassword(credentialsId: "${aliyun_auth}", passwordVariable: 'password', usernameVariable: 'username')]) {
+      //登录阿里云
+     sh "docker login --username=${username} registry.cn-hangzhou.aliyuncs.com"
+      //镜像上传到阿里云仓库
+     sh "docker push ${aliyun_url}/${aliyun_project}/${imageName}:${tag}"
 
      sh "echo 镜像上传成功"
         }
