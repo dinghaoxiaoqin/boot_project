@@ -55,7 +55,7 @@ node {
      //推送镜像到harbor
      withCredentials([usernamePassword(credentialsId: "${aliyun_auth}", passwordVariable: 'password', usernameVariable: 'username')]) {
       //登录阿里云
-     sh "sudo  docker login --username=dhqxq123 --password=dhqxq123 registry.cn-hangzhou.aliyuncs.com"
+     sh "docker login --username=dhqxq123 --password=dhqxq123 registry.cn-hangzhou.aliyuncs.com"
       //镜像上传到阿里云仓库
      sh "docker push ${aliyun_url}/${aliyun_project}/${imageName}"
 
