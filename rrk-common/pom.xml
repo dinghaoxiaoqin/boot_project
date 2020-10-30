@@ -43,8 +43,6 @@
             <artifactId>swagger-bootstrap-ui</artifactId>
             <version>1.9.1</version>
         </dependency>
-
-
         <!-- jdbc驱动 -->
         <dependency>
             <groupId>mysql</groupId>
@@ -58,8 +56,6 @@
             <version>1.18.4</version>
             <scope>provided</scope>
         </dependency>
-
-
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
@@ -70,8 +66,6 @@
             <artifactId>jsoup</artifactId>
             <version>1.10.3</version>
         </dependency>
-
-
         <!-- mybatis-plus 3.0.5-->
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -90,20 +84,8 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.5</version>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-            <version>2.1.0.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-datasource-nacos</artifactId>
-            <version>1.7.0</version>
-        </dependency>
 
         <!-- freemarker -->
-
         <!--druid数据库连接池-->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -137,7 +119,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
-
         <!--JWT依赖-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -155,26 +136,6 @@
             <artifactId>spring-security-jwt</artifactId>
             <version>1.1.1.RELEASE</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.github.openfeign</groupId>-->
-<!--            <artifactId>feign-core</artifactId>-->
-<!--            <version>9.7.0</version>-->
-<!--            <scope>compile</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.github.openfeign.form</groupId>-->
-<!--            <artifactId>feign-form-spring</artifactId>-->
-<!--            <version>3.3.0</version>-->
-<!--            <scope>compile</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.netflix.hystrix</groupId>-->
-<!--            <artifactId>hystrix-core</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>-->
-<!--        </dependency>-->
 
     </dependencies>
 
