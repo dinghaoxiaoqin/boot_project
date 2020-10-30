@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>boot-oauth</artifactId>
+    <artifactId>boot-auth</artifactId>
     <description>
         OAuth2认证服务
     </description>
