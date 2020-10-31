@@ -19,25 +19,26 @@ spring:
     sentinel:
       transport:
         dashboard: boot-sentinel-server:8858
+        client-ip: 192.168.248.1
         port: 8719
-        clientIp: 192.168.248.1
+    #  enabled: true
       datasource:
         ds1:
           nacos:
             server-addr: boot-nacos-server:8848
-            dataId: boot-order-dev
+            dataId: ${spring.application.name}
             groupId: DEFAULT_GROUP
             data-type: json
             #限流规则持久化
             rule-type: flow
-        ds2:
-          nacos:
-            server-addr: boot-nacos-server:8848
-            dataId: order-degrade-dev
-            groupId: DEFAULT_GROUP
-            data-type: json
-            #降级规则持久化
-            rule-type: degrade
+#        flow2:
+#           nacos:
+#             server-addr: boot-nacos-server:8848
+#             dataId: order-degrade-dev
+#             groupId: DEFAULT_GROUP
+#             data-type: json
+#            #降级规则持久化
+#             rule-type: degrade
         # 取消延迟加载
       eager: true
 

@@ -17,7 +17,7 @@ spring:
     sentinel:
       transport:
         dashboard: boot-sentinel-server:8858
-        port: 8719
+        port: 8720
         clientIp: 192.168.248.1
       datasource:
         ds2:

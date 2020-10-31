@@ -2,7 +2,6 @@ package com.rrk.order;
 
 import com.codingapi.txlcn.tc.config.EnableDistributedTransaction;
 import com.rrk.common.handle.MyExceptionHandler;
-//import com.rrk.common.handle.SentinelExceptionHandler;
 import com.rrk.common.handle.SentinelExceptionHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +10,8 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+//import com.rrk.common.handle.SentinelExceptionHandler;
 
 @SpringBootApplication
 @EnableDiscoveryClient
