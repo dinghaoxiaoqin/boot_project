@@ -1,0 +1,32 @@
+server:
+  port: 9091
+spring:
+  application:
+    name: boot-product-dev
+  #配置中心
+  cloud:
+    nacos:
+      discovery:
+        server-addr: boot-nacos-server:8848
+      config:
+        server-addr: boot-nacos-server:8848
+        group: DEFAULT_GROUP
+        # prefix: ${spring.application.name}
+        file-extension: yml
+        namespace: d558129a-e19d-4879-a6a9-51d4d6f11a60
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8858
+        port: 8720
+        clientIp: 127.0.0.1
+      datasource:
+        ds2:
+          nacos:
+            server-addr: boot-nacos-server:8848
+            dataId: product-degrade-dev
+            groupId: DEFAULT_GROUP
+            data-type: json
+            #降级规则持久化
+            rule-type: degrade
+        # 取消延迟加载
+      eager: true
