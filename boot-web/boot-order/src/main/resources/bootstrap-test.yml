@@ -18,8 +18,8 @@ spring:
         namespace: d558129a-e19d-4879-a6a9-51d4d6f11a60
     sentinel:
       transport:
-        dashboard: 127.0.0.1:8858
-        client-ip: 127.0.0.1
+        dashboard: 192.168.248.102:8858
+        client-ip: 192.168.248.102
         port: 8719
       #  enabled: true
       datasource:
