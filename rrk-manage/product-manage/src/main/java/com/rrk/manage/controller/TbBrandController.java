@@ -86,5 +86,21 @@ public class TbBrandController {
 		List<TbBrand> list = brandService.list(null);
 		return R.ok(200, "操作成功", list);
 	}
+	/**
+	 * 删除品牌
+	 */
+	@PostMapping(value = "/deleteBrand")
+	public R<Object> deleteBrand(@RequestParam(value = "id") Long id){
+		if (id != null) {
+			boolean b = brandService.removeById(id);
+			if (b) {
+				return R.ok(200,"删除成功");
+			} else {
+				return R.fail(400,"删除失败");
+			}
+		}
+		return R.fail(400,"要删除的品牌不存在");
+
+	}
 
 }
