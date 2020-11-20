@@ -103,9 +103,9 @@ public class TbSpuServiceImpl extends ServiceImpl<TbSpuMapper, TbSpu> implements
             must.add(valid);
             must.add(saleable);
             List<QueryBuilder> should = bool.should();
-            MatchQueryBuilder queryBuilder = QueryBuilders.matchQuery("spuname", strings.get(0));
-            MatchQueryBuilder qb = QueryBuilders.matchQuery("spuname", strings.get(1));
-            MatchQueryBuilder query = QueryBuilders.matchQuery("spuname", strings.get(2));
+            MatchQueryBuilder queryBuilder = QueryBuilders.matchQuery("skuname", strings.get(0));
+            MatchQueryBuilder qb = QueryBuilders.matchQuery("skuname", strings.get(1));
+            MatchQueryBuilder query = QueryBuilders.matchQuery("skuname", strings.get(2));
             should.add(queryBuilder);
             should.add(qb);
             should.add(query);
@@ -273,9 +273,9 @@ public class TbSpuServiceImpl extends ServiceImpl<TbSpuMapper, TbSpu> implements
             must.add(valid);
             must.add(saleable);
             List<QueryBuilder> should = bool.should();
-            MatchQueryBuilder queryBuilder = QueryBuilders.matchQuery("spuname", strings.get(0));
-            MatchQueryBuilder qb = QueryBuilders.matchQuery("spuname", strings.get(1));
-            MatchQueryBuilder query = QueryBuilders.matchQuery("spuname", strings.get(2));
+            MatchQueryBuilder queryBuilder = QueryBuilders.matchQuery("skuname", strings.get(0));
+            MatchQueryBuilder qb = QueryBuilders.matchQuery("skuname", strings.get(1));
+            MatchQueryBuilder query = QueryBuilders.matchQuery("skuname", strings.get(2));
             should.add(queryBuilder);
             should.add(qb);
             should.add(query);
@@ -426,7 +426,7 @@ public class TbSpuServiceImpl extends ServiceImpl<TbSpuMapper, TbSpu> implements
         List<QueryBuilder> must = bool.must();
         QueryBuilder valid = QueryBuilders.termQuery("valid", 1);
         QueryBuilder saleable = QueryBuilders.termQuery("saleable", 1);
-        QueryBuilder spuname = QueryBuilders.matchQuery("spuname", searchName);
+        QueryBuilder spuname = QueryBuilders.matchQuery("skuname", searchName);
         must.add(valid);
         must.add(saleable);
         must.add(spuname);
