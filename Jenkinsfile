@@ -52,7 +52,7 @@ node {
      }
      //定义镜像的名字
      sh "docker tag ${imageName} ${aliyun_url}/${aliyun_project}/${imageName}"
-     //推送镜像到harbor
+     //推送镜像到阿里云
      withCredentials([usernamePassword(credentialsId: "${aliyun_auth}", passwordVariable: 'password', usernameVariable: 'username')]) {
       //登录阿里云
      sh "docker login -u ${username} -p ${password} registry.cn-hangzhou.aliyuncs.com"
