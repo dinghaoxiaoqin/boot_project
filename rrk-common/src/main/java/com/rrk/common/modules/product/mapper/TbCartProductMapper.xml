@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rrk.common.modules.product.dao.TbCartProductMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rrk.common.modules.product.entity.TbCartProduct">
+        <id column="id" property="id" />
+        <result column="cart_id" property="cartId" />
+        <result column="spu_id" property="spuId" />
+        <result column="sku_id" property="skuId" />
+        <result column="shop_id" property="shopId" />
+        <result column="sku_num" property="skuNum" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, cart_id, spu_id, sku_id, shop_id, sku_num, create_time, update_time
+    </sql>
+    <select id="getCartProduct" resultType="com.rrk.common.modules.product.dto.webdto.ProductDto">
+        SELECT
+        a.sku_id AS skuId,
+        a.spu_id AS spuId,
+        c.title AS skuName,
+        c.images AS skuImage,
+        c.sale_price AS salesPrice,
+        a.sku_num AS nums,
+        b.activity_id AS activityId,
+        d.man_amount AS manAmount,
+        d.gift_amount AS giftAmount,
+        d.is_gift AS isGift,
+        b.activity_price AS proPrefe,
+        d.is_activity AS isActivity,
+        b.is_sell AS isSell
+        FROM tb_cart_product a
+        LEFT JOIN tb_activity_product b ON a.sku_id = b.sku_id
+        LEFT JOIN tb_sku c ON a.sku_id = c.id
+        LEFT JOIN tb_platform_activity d ON d.id = b.activity_id
+        WHERE a.sku_id =#(skuId) and a.shop_id = #{shopId}
+
+    </select>
+
+</mapper>

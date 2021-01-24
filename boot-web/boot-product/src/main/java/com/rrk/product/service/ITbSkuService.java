@@ -1,6 +1,7 @@
 package com.rrk.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.rrk.common.modules.product.dto.webdto.SkuDto;
 import com.rrk.common.modules.product.entity.TbSku;
 
 /**
@@ -13,6 +14,5 @@ import com.rrk.common.modules.product.entity.TbSku;
  */
 public interface ITbSkuService extends IService<TbSku> {
 
-
-
+    SkuDto getSkuOne(Long id);
 }

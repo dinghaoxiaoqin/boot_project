@@ -151,35 +151,40 @@ public class PartController {
      */
     @PostMapping(value = "/addPartPermission")
     public R<Object> addPartPermission(HttpServletRequest request, @RequestBody PartEmployeeDto partEmployeeDto) {
-        Long employeeId = JwtTokenUtil.getUserId(request);
+       // Long employeeId = JwtTokenUtil.getUserId(request);
+        Long employeeId = 1L;
+        List<TbPartPermission> list = new ArrayList<>();
         if (employeeId != null) {
-            List<TbPartPermission> list = new ArrayList<>();
-            //判断分配权限是否重复
-            List<TbPermission> tbPermissions = permissionService.list(new QueryWrapper<TbPermission>().in("permission_id", partEmployeeDto.getPermissionIds()));
-            List<TbPartPermission> tbPartPermissions = partPermissionService.list(new QueryWrapper<TbPartPermission>().eq("part_id", partEmployeeDto.getPartId()).in("permission_id", partEmployeeDto.getPermissionIds()));
-            if (CollUtil.isNotEmpty(tbPartPermissions)) {
-                return R.fail(412, "存在重复的权限");
-            }
-            if (CollUtil.isNotEmpty(partEmployeeDto.getPermissionIds())) {
-                for (Long permissionId : partEmployeeDto.getPermissionIds()) {
-                    TbPartPermission tbPartPermission = new TbPartPermission();
-                    tbPartPermission.setPermissionId(permissionId);
-                    tbPartPermission.setPartId(partEmployeeDto.getPartId());
-                    tbPartPermission.setCreateTime(new Date());
-                    list.add(tbPartPermission);
+            //1.将用户角色菜单全部删除
+            boolean isDelete = partPermissionService.remove(new QueryWrapper<TbPartPermission>().eq("part_id", partEmployeeDto.getPartId()));
+            if (isDelete) {
+                //删除成功,重新保存
+                if (CollUtil.isNotEmpty(partEmployeeDto.getPermissionIds())) {
+                    for (Long permissionId : partEmployeeDto.getPermissionIds()) {
+                        TbPartPermission tbPartPermission = new TbPartPermission();
+                        tbPartPermission.setPermissionId(permissionId);
+                        tbPartPermission.setPartId(partEmployeeDto.getPartId());
+                        tbPartPermission.setCreateTime(new Date());
+                        list.add(tbPartPermission);
+                    }
                 }
-            }
-            if (CollUtil.isNotEmpty(list)) {
-                boolean save = partPermissionService.saveBatch(list);
-                if (save) {
-                    tokenRedisUtil.updateMenu(partEmployeeDto.getPartId(), tbPermissions
-                    );
-                    return R.ok(200, "操作成功", "");
+                if (CollUtil.isNotEmpty(list)) {
+                    boolean save = partPermissionService.saveBatch(list);
+                    if (save) {
+                        List<TbPermission> tbPermissions = permissionService.list(new QueryWrapper<TbPermission>().in("permission_id", partEmployeeDto.getPermissionIds()));
+                        tokenRedisUtil.updateMenu(partEmployeeDto.getPartId(), tbPermissions
+                        );
+                        return R.ok(200, "操作成功", "");
+                    } else {
+                        return R.fail(408, "添加失败");
+                    }
                 } else {
-                    return R.fail(408, "添加失败");
+                    return R.fail(408, "请勾选菜单");
                 }
+            } else {
+                //失败
+                return R.fail(408, "添加失败");
             }
-            return R.fail(408, "添加失败");
         } else {
             return R.fail(401, "请先登录");
         }

@@ -33,8 +33,6 @@ public class TokenRedisUtil {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-
-
     /**
      * 请求头Authorization
      */
@@ -153,26 +151,12 @@ public class TokenRedisUtil {
         List<PartPermDto> partPermDtos = new ArrayList<>();
         if (CollUtil.isNotEmpty(permissions)) {
             for (TbPermission permission : permissions) {
-                PartPermDto partPermDto = new PartPermDto(partId,permission);
+                PartPermDto partPermDto = new PartPermDto(partId, permission);
                 partPermDtos.add(partPermDto);
             }
         }
-        String s = redisTemplate.opsForValue().get(RedisConstant.PERMISSION_CACHE);
-        if (StrUtil.isNotBlank(s)) {
-            List<PartPermDto> partPermDtoList = JSON.parseArray(s, PartPermDto.class);
-            for (PartPermDto partPermDto : partPermDtos) {
-                PartPermDto permDto = partPermDtoList.stream().filter(p -> partPermDto.getPartId().longValue() == p.getPartId().longValue()
-                        && partPermDto.getPermissionId().longValue() == p.getPermissionId().longValue()).findFirst().orElse(null);
-                if (ObjectUtil.isNotNull(permDto)) {
-                        Collections.replaceAll(partPermDtoList,  permDto,partPermDto);
-                } else {
-                    partPermDtoList.add(partPermDto);
-                }
-            }
-            redisTemplate.opsForValue().set(RedisConstant.PERMISSION_CACHE, JSON.toJSONString(partPermDtoList));
-        } else {
-            redisTemplate.opsForValue().set(RedisConstant.PERMISSION_CACHE, JSON.toJSONString(partPermDtos));
-        }
+        redisTemplate.opsForValue().set(RedisConstant.PERMISSION_CACHE, JSON.toJSONString(partPermDtos));
+
     }
 
     /**
@@ -223,7 +207,7 @@ public class TokenRedisUtil {
      *
      * @param parts
      */
-    public void editRole( List<TbPart> parts, Long userId) {
+    public void editRole(List<TbPart> parts, Long userId) {
         List<EmployeePartDto> list = new ArrayList<>();
         for (TbPart part : parts) {
             EmployeePartDto partDto = new EmployeePartDto(part, userId);
@@ -275,21 +259,21 @@ public class TokenRedisUtil {
     public void initPermission(List<TbPermission> list, List<TbPartPermission> partPermissions) {
         List<PartPermDto> partPermDtos = new ArrayList<>();
         for (TbPartPermission partPermission : partPermissions) {
-             List<TbPermission> tbPermissions = list.stream().filter(p -> partPermission.getPermissionId().longValue() == p.getPermissionId().longValue()).collect(Collectors.toList());
+            List<TbPermission> tbPermissions = list.stream().filter(p -> partPermission.getPermissionId().longValue() == p.getPermissionId().longValue()).collect(Collectors.toList());
             for (TbPermission permission : tbPermissions) {
-                 PartPermDto partPermDto = new PartPermDto(partPermission.getPartId(), permission);
+                PartPermDto partPermDto = new PartPermDto(partPermission.getPartId(), permission);
                 partPermDtos.add(partPermDto);
             }
         }
         redisTemplate.opsForValue().set(RedisConstant.PERMISSION_CACHE, JSON.toJSONString(partPermDtos));
     }
 
-    public void initPart(List<TbPart> tbParts,List<TbEmployeePart> employeeParts) {
+    public void initPart(List<TbPart> tbParts, List<TbEmployeePart> employeeParts) {
         List<EmployeePartDto> employeePartDtos = new ArrayList<>();
         for (TbEmployeePart employeePart : employeeParts) {
-             List<TbPart> parts = tbParts.stream().filter(p -> employeePart.getPartId().longValue() == p.getPartId().longValue()).collect(Collectors.toList());
+            List<TbPart> parts = tbParts.stream().filter(p -> employeePart.getPartId().longValue() == p.getPartId().longValue()).collect(Collectors.toList());
             for (TbPart part : parts) {
-                EmployeePartDto employeePartDto = new EmployeePartDto(part,employeePart.getEmployeeId());
+                EmployeePartDto employeePartDto = new EmployeePartDto(part, employeePart.getEmployeeId());
                 employeePartDtos.add(employeePartDto);
             }
         }

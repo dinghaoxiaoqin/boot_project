@@ -13,7 +13,6 @@ import com.rrk.manage.service.ITbSpuService;
 import com.rrk.manage.utils.HttpUtils;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.IJobHandler;
-import com.xxl.job.core.handler.annotation.JobHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.jsoup.Jsoup;
@@ -34,7 +33,7 @@ import java.util.Random;
  * 拉取抖音商品的任务调度
  */
 @Component
-@JobHandler(value = "DouyinProductJob")
+// @JobHandler(value = "DouyinProductJob")
 @Slf4j
 public class DouyinProductJob extends IJobHandler {
 
@@ -47,7 +46,7 @@ public class DouyinProductJob extends IJobHandler {
     private ITbSkuService skuService;
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    private final static String PRODUCT_URL = "https://search.jd.com/Search?keyword=珀莱雅护肤品套装&wq=珀莱雅护肤品套装&s=104&click=1&page=";
+    private final static String PRODUCT_URL = "https://search.jd.com/Search?keyword=稻草人背包&wq=稻草人背包&s=104&click=1&page=";
 //
     private final static String PRODUCT_METHOD = "product.list";
 
@@ -158,15 +157,15 @@ public class DouyinProductJob extends IJobHandler {
             }
         if (CollUtil.isNotEmpty(skus)) {
             TbSpu spu = new TbSpu();
-            spu.setBrandId(325470L);
-            spu.setTitle("珀莱雅护肤品套装");
+            spu.setBrandId(325463L);
+            spu.setTitle("稻草人双肩背包");
             spu.setValid(1);
             spu.setCreateTime(new Date());
-            spu.setCid1(471L);
-            spu.setCid2(480L);
-            spu.setSpuDescrition("珀莱雅护肤品套装");
+            spu.setCid1(1187L);
+            spu.setCid2(1192L);
+            spu.setSpuDescrition("稻草人双肩背包");
             spu.setSaleable(1);
-            spu.setSubTitle("珀莱雅护肤品套装紧致肌密（洗面奶+凝时爽肤水+乳液） 补水水乳套装女");
+            spu.setSubTitle("稻草人（MEXICAN）双肩背包女韩版潮女包背包");
             spuService.save(spu);
             for (TbSku sku : skus) {
                 sku.setSpuId(spu.getId());

@@ -162,6 +162,7 @@ public class PermissionController {
                 }
                 dtos = handle(list, dtos);
             }
+            System.out.println("获取的"+dtos);
             return R.ok(200, "操作成功", dtos);
         } else {
             return R.fail(401, "未登录，请先登录");

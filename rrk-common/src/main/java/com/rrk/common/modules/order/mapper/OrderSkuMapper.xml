@@ -11,6 +11,9 @@
         <result column="sku_name" property="skuName" />
         <result column="sku_desc" property="skuDesc" />
         <result column="sku_num" property="skuNum" />
+        <result column="spu_name" property="skuName" />
+        <result column="product_brand" property="productBrand" />
+        <result column="product_category" property="productCategory" />
         <result column="price" property="price" />
         <result column="beat_price" property="beatPrice" />
         <result column="sale_price" property="salePrice" />
@@ -20,7 +23,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, order_no, sku_id, sku_image, sku_name, sku_desc, sku_num, price, beat_price, sale_price, create_time, update_time
+        id, order_no, sku_id, sku_image, sku_name, sku_desc, sku_num,spu_name, product_brand,product_category,price, beat_price, sale_price, create_time, update_time
     </sql>
 
 </mapper>

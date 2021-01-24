@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rrk.common.modules.product.dao.TbActivityProductMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rrk.common.modules.product.entity.TbActivityProduct">
+        <id column="id" property="id" />
+        <result column="activity_id" property="activityId" />
+        <result column="spu_id" property="spuId" />
+        <result column="sku_id" property="skuId" />
+        <result column="sku_name" property="skuName" />
+        <result column="sku_image" property="skuImage" />
+        <result column="sku_desc" property="skuDesc" />
+        <result column="activity_price" property="activityPrice" />
+        <result column="activity_stock" property="activityStock" />
+        <result column="is_sell" property="isSell" />
+        <result column="is_activity" property="isActivity" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, activity_id, spu_id, sku_id, sku_name, sku_image, sku_desc, activity_price, activity_stock, is_sell, is_activity, create_time, update_time
+    </sql>
+
+</mapper>

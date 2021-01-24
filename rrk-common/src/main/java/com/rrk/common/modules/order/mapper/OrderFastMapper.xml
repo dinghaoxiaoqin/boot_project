@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.rrk.common.modules.order.entity.OrderFast">
         <id column="id" property="id" />
+        <result column="order_no" property="orderNo" />
         <result column="express_no" property="expressNo" />
         <result column="logistic_code" property="logisticCode" />
         <result column="logistic_name" property="logisticName" />
@@ -14,7 +15,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, express_no, logistic_code, logistic_name, create_time, update_time
+        id, order_no,express_no, logistic_code, logistic_name, create_time, update_time
     </sql>
 
 </mapper>

@@ -15,6 +15,7 @@ public class ProvinceDto implements Serializable {
      * 父级编号
      */
     private Integer parentCode;
+
     /**
      * 名称
      */

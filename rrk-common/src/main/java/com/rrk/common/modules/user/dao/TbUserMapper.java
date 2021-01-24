@@ -1,7 +1,6 @@
 package com.rrk.common.modules.user.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.rrk.common.modules.user.dto.UserInfo;
 import com.rrk.common.modules.user.dto.UserMenuDto;
 import com.rrk.common.modules.user.entity.TbUser;
 import io.lettuce.core.dynamic.annotation.Param;
@@ -20,5 +19,7 @@ public interface TbUserMapper extends BaseMapper<TbUser> {
 
     List<UserMenuDto> getMenuByUserName(@Param("username") String username);
 
-    UserInfo getCurrentUserInfo(@Param("userId") Long userId);
+
+
+    TbUser selectByUserId(@Param("id") long id);
 }

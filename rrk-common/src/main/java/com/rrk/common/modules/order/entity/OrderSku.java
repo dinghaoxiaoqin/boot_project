@@ -58,6 +58,20 @@ private static final long serialVersionUID=1L;
     private Integer skuNum;
 
     /**
+     * spu名称
+     */
+    private String spuName;
+
+    /**
+     * 品牌名称
+     */
+    private String productBrand;
+    /**
+     * 商品分类名称
+     */
+    private String productCategory;
+
+    /**
      * 原价
      */
     private BigDecimal price;
@@ -204,6 +218,30 @@ private static final long serialVersionUID=1L;
     public OrderSku setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
         return this;
+    }
+
+    public String getSpuName() {
+        return spuName;
+    }
+
+    public void setSpuName(String spuName) {
+        this.spuName = spuName;
+    }
+
+    public String getProductBrand() {
+        return productBrand;
+    }
+
+    public void setProductBrand(String productBrand) {
+        this.productBrand = productBrand;
+    }
+
+    public String getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(String productCategory) {
+        this.productCategory = productCategory;
     }
 
     @Override

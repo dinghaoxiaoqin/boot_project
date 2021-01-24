@@ -7,14 +7,20 @@
         <id column="id" property="id" />
         <result column="order_no" property="orderNo" />
         <result column="user_id" property="userId" />
-        <result column="sku_id" property="skuId" />
         <result column="address_id" property="addressId" />
         <result column="express_no" property="expressNo" />
         <result column="shop_id" property="shopId" />
         <result column="order_status" property="orderStatus" />
         <result column="pay_type" property="payType" />
+        <result column="is_delete" property="isDelete" />
         <result column="amount" property="amount" />
         <result column="buy_num" property="buyNum" />
+        <result column="receiver_name" property="receiverName" />
+        <result column="receiver_phone" property="receiverPhone" />
+        <result column="receiver_province" property="receiverProvince" />
+        <result column="receiver_city" property="receiverCity" />
+        <result column="receiver_area" property="receiverArea" />
+        <result column="receiver_address" property="receiverAddress" />
         <result column="coupon_no" property="couponNo" />
         <result column="remarks" property="remarks" />
         <result column="create_time" property="createTime" />
@@ -45,7 +51,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, order_no, user_id, sku_id, address_id, express_no, shop_id, order_status, pay_type, amount, buy_num, coupon_no, remarks, create_time,over_time, pay_time, update_time, send_time,finish_time
+        id, order_no, user_id, address_id, express_no, shop_id, order_status, pay_type,is_delete, amount, buy_num, receiver_name,receiver_phone,receiver_province,receiver_city,receiver_area,receiver_address,coupon_no, remarks, create_time,over_time, pay_time, update_time, send_time,finish_time
     </sql>
 
     <select id="getOrderInfoList" resultMap="getOrderSkuList">
@@ -64,6 +70,128 @@
         orderSku.price as price
         from tb_order tbOrder ,order_sku orderSku where tbOrder.user_id = #{userId} and orderSku.order_no = tbOrder.order_no
         order by tbOrder.create_time desc limit #{pageNo},#{pageSize}
+    </select>
+    <select id="getStatisticByBrand" resultType="com.rrk.common.modules.order.dto.OrderBrandStatisticDto">
+        SELECT b.product_brand AS brand, COUNT(b.order_no) AS orderCount,SUM(IFNULL(b.sku_num,0)) AS nums, SUM(IFNULL(a.amount,0)) AS amount  FROM  tb_order a
+        LEFT JOIN  order_sku  b ON a.order_no = b.order_no
+        WHERE 1=1 and   b.product_brand IS NOT NULL
+        and a.create_time BETWEEN #{start} and #{end}
+        <if test="province != null and province != ''">
+            and a.receiver_province = #{province}
+        </if>
+        <if test="category != null and category != ''">
+            and b.product_category = #{category}
+        </if>
+        and a.order_status in (1,2,3) GROUP BY  b.product_brand
+    </select>
+    <select id="getOrderStatisticByBrand" resultType="com.rrk.common.modules.order.dto.OrderBrandStatisticDto">
+        SELECT
+        b.product_brand AS brand,
+        COUNT(b.order_no) AS orderCount,
+        SUM(IFNULL(b.sku_num,
+        0)) AS nums,
+        SUM(IFNULL(a.amount,
+        0)) AS amount
+        FROM
+        tb_order a
+        LEFT JOIN
+        order_sku b
+        ON a.order_no = b.order_no
+        WHERE
+        1=1
+        and b.product_brand IS NOT NULL
+
+        and a.order_status in (
+        1,2,3
+        )
+        GROUP BY
+        b.product_brand
+    </select>
+    <select id="getOrderProductByOrder" resultType="java.util.HashMap">
+        SELECT c.skuId, c.spuName,c.skuName,c.productCategory ,MAX(c.nums) AS numsMax  FROM (
+        SELECT b.sku_id AS skuId,b.sku_name AS skuName, b.spu_name AS spuName ,b.product_category AS productCategory , SUM(b.sku_num) AS nums FROM tb_order a
+        LEFT JOIN order_sku b ON a.order_no = b.order_no WHERE b.sku_name  IS NOT  NULL
+        and a.create_time BETWEEN #{start} and #{end}
+        <if test="province != null and province != ''">
+            and a.receiver_province = #{province}
+        </if>
+        AND a.order_status IN (1,2,3)
+        GROUP BY b.sku_name
+        ) c  GROUP BY c.productCategory
+    </select>
+
+    <select id="getOrderSpuStatistic" resultType="java.util.HashMap">
+        SELECT b.spu_name AS spuName , SUM(b.sku_num) AS nums ,SUM(a.amount) as amount,a.receiver_province AS province  FROM tb_order a
+        LEFT JOIN order_sku b ON a.order_no = b.order_no
+        WHERE 1=1 and b.spu_name  IS NOT  NULL
+        and a.create_time BETWEEN #{start} and #{end}
+        AND   a.order_status IN(1,2,3) GROUP BY b.spu_name
+    </select>
+
+    <select id="totalOrderUser" resultType="java.util.HashMap">
+        SELECT   oms.createTime ,COUNT( DISTINCT oms.userId) AS userCount FROM (
+        SELECT  DATE_FORMAT(a.create_time,'%Y-%m-%d') createTime,
+        a.user_id AS userId
+        FROM tb_order a WHERE a.order_status IN(1,2,3)  AND a.create_time  BETWEEN #{start} and #{end}
+        ) oms GROUP BY oms.createTime
+    </select>
+
+    <select id="newOrderUser" resultType="java.util.HashMap">
+        SELECT   oms.createTime ,COUNT(DISTINCT oms.userId) AS userCount FROM (
+        SELECT  DATE_FORMAT(a.create_time,'%Y-%m-%d') createTime,
+        a.user_id AS userId ,
+        COUNT(a.user_id) AS uCount
+        FROM tb_order a WHERE a.order_status IN(1,2,3)  AND a.create_time &lt;= #{end} GROUP BY  a.user_id HAVING uCount =1
+        ) oms WHERE oms.createTime   BETWEEN #{start} and #{end} GROUP BY oms.createTime
+    </select>
+    <select id="oldOrderUser" resultType="java.util.HashMap">
+        SELECT   oms.createTime ,COUNT(DISTINCT oms.userId) AS userCount FROM (
+        SELECT  DATE_FORMAT(a.create_time,'%Y-%m-%d') createTime,
+        a.user_id AS userId ,
+        COUNT(a.user_id) AS uCount
+        FROM tb_order a WHERE a.order_status IN(1,2,3)  AND a.create_time &lt;= #{end} GROUP BY  a.user_id HAVING uCount > 1
+        ) oms WHERE oms.createTime   BETWEEN #{start} and #{end} GROUP BY oms.createTime
+    </select>
+
+    <select id="getOrderProductStatistic" resultType="com.rrk.common.dto.OrderProductDto">
+        SELECT c.user_id as userId,d.sku_id AS skuId ,d.sku_name AS skuName,d.spu_name AS spuName ,c.receiver_city AS receiverCity,d.product_category
+        AS productCategory ,d.product_brand AS productBrand, d.sale_price AS salePrice ,SUM(d.sku_num) AS nums
+        FROM
+        tb_order c
+        LEFT JOIN order_sku d ON c.order_no = d.order_no
+        where
+        c.user_id in
+        <foreach item="userId" collection="list" separator="," open="(" close=")" index="index">
+                   #{userId}
+                </foreach>
+        GROUP BY d.sku_id ORDER BY skuId DESC limit #{page},#{pageSize}
+    </select>
+
+    <select id="getOrderProductStatisticCount" resultType="long">
+        SELECT count(1)
+        FROM
+        tb_order c
+        LEFT JOIN order_sku d ON c.order_no = d.order_no
+        where
+        c.user_id in
+        <foreach item="userId" collection="list" separator="," open="(" close=")" index="index">
+            #{userId}
+        </foreach>
+    </select>
+
+    <select id="getUserIds" resultType="long">
+        SELECT a.user_id AS userId ,COUNT(a.user_id) AS userCount  FROM tb_order a LEFT JOIN order_sku b ON a.order_no = b.order_no
+        WHERE 1=1
+        <if test="province != null  and province != ''">
+            and a.receiver_province = #{province}
+        </if>
+        <if test="category != null and category != ''">
+            and b.product_category = #{category}
+        </if>
+        and b.sku_id  IS NOT  NULL AND a.create_time BETWEEN
+        #{start} AND #{end}
+        AND a.order_status IN (1,2,3)
+        GROUP BY a.user_id HAVING userCount =1
     </select>
 
 </mapper>

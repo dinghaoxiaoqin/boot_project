@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rrk.common.modules.product.dao.TbCartMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rrk.common.modules.product.entity.TbCart">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="product_num" property="productNum" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, product_num, create_time, update_time
+    </sql>
+
+    <select id="getCarts" resultType="com.rrk.common.modules.product.dto.webdto.CartDto">
+        select
+        b.sku_id as skuId,
+        b.spu_id as spuId,
+        c.title as skuName,
+        c.images as skuImage,
+        c.sale_price as salePrice,
+        b.sku_num as nums,
+        b.shop_id as shopId
+        from tb_cart a
+        left join tb_cart_product b on b.cart_id = a.id
+        left join tb_sku c on c.id = b.sku_id
+        where a.user_id = #{userId}
+    </select>
+
+</mapper>

@@ -1,6 +1,5 @@
 package com.rrk.order;
 
-import com.codingapi.txlcn.tc.config.EnableDistributedTransaction;
 import com.rrk.common.handle.MyExceptionHandler;
 import com.rrk.common.handle.SentinelExceptionHandler;
 import org.springframework.boot.SpringApplication;
@@ -18,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableFeignClients
 @RefreshScope
 @EnableTransactionManagement
-@EnableDistributedTransaction
+//@EnableDistributedTransaction
 @Import({MyExceptionHandler.class, SentinelExceptionHandler.class})
 public class BootOrderApplication {
 

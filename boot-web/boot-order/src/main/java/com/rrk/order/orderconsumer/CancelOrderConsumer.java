@@ -3,8 +3,7 @@ package com.rrk.order.orderconsumer;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.codingapi.txlcn.tc.annotation.DTXPropagation;
-import com.codingapi.txlcn.tc.annotation.LcnTransaction;
+
 import com.rabbitmq.client.Channel;
 import com.rrk.common.constant.MqConstatns;
 import com.rrk.common.modules.order.dto.OrderDto;
@@ -40,7 +39,7 @@ public class CancelOrderConsumer implements ChannelAwareMessageListener {
      * @param channel
      * @throws Exception
      */
-    @LcnTransaction(propagation = DTXPropagation.REQUIRED) //事务发起方
+    //@LcnTransaction(propagation = DTXPropagation.REQUIRED) //事务发起方
     @RabbitListener(queues = MqConstatns.CANCEL_ORDER_QUEUE)
     @RabbitHandler
     @Override

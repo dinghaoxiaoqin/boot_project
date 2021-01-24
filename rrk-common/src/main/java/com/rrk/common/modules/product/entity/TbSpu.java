@@ -1,7 +1,5 @@
 package com.rrk.common.modules.product.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
@@ -24,7 +22,7 @@ private static final long serialVersionUID=1L;
     /**
      * spu id
      */
-    @TableId(value = "id", type = IdType.AUTO)
+   // @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
@@ -81,6 +79,7 @@ private static final long serialVersionUID=1L;
      * 最后修改时间
      */
     private Date updateTime;
+
 
 
     public Long getId() {

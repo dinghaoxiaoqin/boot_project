@@ -102,6 +102,11 @@ public class NumConstants {
      */
     public static final  Integer SOURCE_ALIPAY = 3;
 
+    /**
+     * 自动确认收货超时时间（天数）
+     */
+    public static final Integer OVER_CONFIRM_ORDER = 7;
+
 
 
 

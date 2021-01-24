@@ -83,25 +83,17 @@ public class EmployeeController {
                 return R.fail(420, "请输入正确的手机号");
             }
             employee = employeeService.getOne(new QueryWrapper<TbEmployee>().eq("employee_id", employeeDto.getEmployeeId()));
-            employee.setEmployeeId(employeeDto.getEmployeeId());
-            employee.setUsername(employeeDto.getUsername());
-            employee.setPhone(employeeDto.getPhone());
-            employee.setEmployeeAddress(employeeDto.getEmployeeAddress());
-            employee.setIcon(employeeDto.getIcon());
-            employee.setIsUse(employeeDto.getIsUse());
-            BCryptPasswordEncoder en = new BCryptPasswordEncoder();
-             String password = en.encode(employeeDto.getPassword());
-            employee.setPassword(password);
-            if (ObjectUtil.isNotNull(employee)) {
-                //修改操作
-                employee.setUpdateTime(new Date());
-                boolean update = employeeService.update(employee, new QueryWrapper<TbEmployee>().eq("employee_id", employeeDto.getEmployeeId()));
-                if (update) {
-                    return R.ok(200, "修改成功");
-                } else {
-                    return R.fail(410, "修改失败");
-                }
-            } else {
+            if (ObjectUtil.isNull(employee)) {
+                employee = new TbEmployee();
+                employee.setEmployeeId(employeeDto.getEmployeeId());
+                employee.setUsername(employeeDto.getUsername());
+                employee.setPhone(employeeDto.getPhone());
+                employee.setEmployeeAddress(employeeDto.getEmployeeAddress());
+                employee.setIcon(employeeDto.getIcon());
+                BCryptPasswordEncoder en = new BCryptPasswordEncoder();
+                String password = en.encode(employeeDto.getPassword());
+                employee.setPassword(password);
+                employee.setIsUse(employeeDto.getIsUse());
                 //增加
                 employee.setCreateTime(new Date());
                 boolean save = employeeService.save(employee);
@@ -110,7 +102,26 @@ public class EmployeeController {
                 } else {
                     return R.fail(409, "添加员工失败");
                 }
+            } else {
+                employee.setEmployeeId(employeeDto.getEmployeeId());
+                employee.setUsername(employeeDto.getUsername());
+                employee.setPhone(employeeDto.getPhone());
+                employee.setEmployeeAddress(employeeDto.getEmployeeAddress());
+                employee.setIcon(employeeDto.getIcon());
+                employee.setIsUse(employeeDto.getIsUse());
+                BCryptPasswordEncoder en = new BCryptPasswordEncoder();
+                String password = en.encode(employeeDto.getPassword());
+                employee.setPassword(password);
+                //修改操作
+                employee.setUpdateTime(new Date());
+                boolean update = employeeService.update(employee, new QueryWrapper<TbEmployee>().eq("employee_id", employeeDto.getEmployeeId()));
+                if (update) {
+                    return R.ok(200, "修改成功");
+                } else {
+                    return R.fail(410, "修改失败");
+                }
             }
+
         } else {
             return R.fail(401, "请先登录");
         }

@@ -66,4 +66,13 @@ public class RedisConstant {
      * 用户收货地址key
      */
     public static final String USER_ADDRESS_KEY = "user_address_key";
+
+    /**
+     * 所有省市区key
+     */
+    public static final String AREA_KEY = "area_key";
+
+    public static final String SKU_KEY = "sku_key";
+
+    public static final String DISTINICT_KEY = "distinct_key";
 }

@@ -45,4 +45,22 @@
         and sku.id = #{skuId}  and spu.valid = 1 and sku.enable = 1
     </select>
 
+    <select id="getSkuOne" resultType="com.rrk.common.modules.product.dto.webdto.SkuDto">
+        SELECT
+        a.id AS skuId,
+        a.images AS skuImage,
+        a.title AS skuName,
+        a.title AS skuDesc,
+        a.price AS price,
+        a.sale_price AS salePrice,
+        b.title AS spuName,
+        c.name AS productBrand,
+        e.name AS productCategory
+        FROM tb_sku a
+        LEFT JOIN tb_spu b ON a.spu_id = b.id
+        LEFT JOIN tb_brand c ON b.brand_id = c.id
+        LEFT JOIN tb_category e ON b.cid1 = e.id
+        WHERE a.id = #{id}
+    </select>
+
 </mapper>

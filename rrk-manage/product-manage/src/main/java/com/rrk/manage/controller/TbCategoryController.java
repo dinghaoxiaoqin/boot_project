@@ -81,8 +81,19 @@ public class TbCategoryController {
         } else {
             return R.fail(401, "请先登录");
         }
-
     }
+
+    @GetMapping(value = "/getCategoryss")
+    public R<Object> getCategoryss(HttpServletRequest request) {
+        Long userId = JwtTokenUtil.getUserId(request);
+        if (userId != null) {
+            List<TbCategory> list = categoryService.list(null);
+            return R.ok(200, "操作成功", list);
+        } else {
+            return R.fail(401, "请先登录");
+        }
+    }
+
 
     /**
      * 分类数据采用树形数据返回

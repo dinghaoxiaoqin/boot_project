@@ -1,6 +1,7 @@
 package com.rrk.order.fegin;
 
 import com.rrk.common.constant.FeginConstant;
+import com.rrk.common.modules.product.dto.webdto.SkuDto;
 import com.rrk.common.modules.product.entity.TbSku;
 import com.rrk.order.fegin.fallback.ProductFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -27,5 +28,11 @@ public interface ProductFeginClient {
      */
     @PostMapping(value = "/api/product/updateStock")
     public Integer updateStock(@RequestBody TbSku sku);
+
+    /**
+     * 获取商品sku
+     */
+    @GetMapping(value = "/api/product/getSkuBySkuId")
+    public SkuDto getSkuBySkuId(@RequestParam(value = "skuId") Long skuId);
 
 }

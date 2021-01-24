@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class CodeGenerator {
 
-    final static String  dirPath = "D:/mybatisCode";
+    final static String  dirPath = "D:/code";
 
     /**
      * <p>
@@ -62,7 +62,7 @@ public class CodeGenerator {
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("123456");
-        dsc.setUrl("jdbc:mysql://local.mysql.com:3306/boot_order?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC");
+        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/boot?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC");
         mpg.setDataSource(dsc);
 
         // 策略配置

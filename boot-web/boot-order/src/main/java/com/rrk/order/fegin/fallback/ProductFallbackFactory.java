@@ -2,6 +2,7 @@ package com.rrk.order.fegin.fallback;
 
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.rrk.common.constant.FeginConstant;
+import com.rrk.common.modules.product.dto.webdto.SkuDto;
 import com.rrk.common.modules.product.entity.TbSku;
 import com.rrk.order.fegin.ProductFeginClient;
 import feign.hystrix.FallbackFactory;
@@ -64,6 +65,10 @@ public class ProductFallbackFactory implements FallbackFactory<ProductFeginClien
                     result = -2;
                 }
                 return result;
+            }
+            @Override
+            public SkuDto getSkuBySkuId(Long skuId){
+                return null;
             }
         };
     }

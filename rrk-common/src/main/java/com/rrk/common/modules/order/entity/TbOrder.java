@@ -28,6 +28,20 @@ public class TbOrder extends Model<TbOrder> {
 
     private static final long serialVersionUID = 1L;
 
+    //管理平台未删除
+    public static final Integer NO_DELETE = 0;
+    //管理平台删除
+    public static final Integer DELETE = 1;
+    //订单未支付
+    public static final Integer NO_PAY_ORDER = 0;
+    //待发货
+    public static final Integer WAIT_DELIVER_ORDER = 1;
+    //待收货
+    public static final Integer WAIT_RECIVER_ORDER = 2;
+    //已完成
+    public static final Integer FINISH_ORDED = 3;
+    //已关闭
+    public static final Integer CLOSE_ORDER = 4;
     /**
      * 记录id
      */
@@ -44,10 +58,7 @@ public class TbOrder extends Model<TbOrder> {
      */
     private Long userId;
 
-    /**
-     * 购买商品skuId
-     */
-    private Long skuId;
+
 
     /**
      * 用户的发货地址id
@@ -73,6 +84,10 @@ public class TbOrder extends Model<TbOrder> {
      * 支付方式
      */
     private Integer payType;
+    /**
+     * 是否删除（0否，1是）
+     */
+    private Integer isDelete;
 
     /**
      * 实付金额
@@ -83,6 +98,18 @@ public class TbOrder extends Model<TbOrder> {
      * 购买数量
      */
     private Integer buyNum;
+
+    private String receiverName;
+
+    private String receiverPhone;
+
+    private String receiverProvince;
+
+    private String receiverCity;
+
+    private String receiverArea;
+
+    private String receiverAddress;
 
     /**
      * 优惠券id
@@ -138,7 +165,7 @@ public class TbOrder extends Model<TbOrder> {
         this.buyNum = orderDto.getNum();
         this.amount = NumberUtil.mul(orderDto.getNum(),sku.getSalePrice());
         this.shopId = 0L;
-        this.skuId = sku.getId();
+
     }
 
     public Long getId() {
@@ -159,6 +186,60 @@ public class TbOrder extends Model<TbOrder> {
         return this;
     }
 
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public TbOrder setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+        return this;
+    }
+
+    public String getReceiverPhone() {
+        return receiverPhone;
+    }
+
+    public TbOrder setReceiverPhone(String receiverPhone) {
+        this.receiverPhone = receiverPhone;
+        return this;
+    }
+
+    public String getReceiverProvince() {
+        return receiverProvince;
+    }
+
+    public TbOrder setReceiverProvince(String receiverProvince) {
+        this.receiverProvince = receiverProvince;
+        return this;
+    }
+
+    public String getReceiverCity() {
+        return receiverCity;
+    }
+
+    public TbOrder setReceiverCity(String receiverCity) {
+        this.receiverCity = receiverCity;
+        return this;
+    }
+
+    public String getReceiverArea() {
+        return receiverArea;
+    }
+
+    public TbOrder setReceiverArea(String receiverArea) {
+        this.receiverArea = receiverArea;
+        return this;
+    }
+
+    public String getReceiverAddress() {
+        return receiverAddress;
+    }
+
+    public TbOrder setReceiverAddress(String receiverAddress) {
+        this.receiverAddress = receiverAddress;
+        return this;
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -168,14 +249,7 @@ public class TbOrder extends Model<TbOrder> {
         return this;
     }
 
-    public Long getSkuId() {
-        return skuId;
-    }
 
-    public TbOrder setSkuId(Long skuId) {
-        this.skuId = skuId;
-        return this;
-    }
 
     public Long getAddressId() {
         return addressId;
@@ -310,6 +384,14 @@ public class TbOrder extends Model<TbOrder> {
         this.sendTime = sendTime;
     }
 
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -321,12 +403,12 @@ public class TbOrder extends Model<TbOrder> {
                 "id=" + id +
                 ", orderNo=" + orderNo +
                 ", userId=" + userId +
-                ", skuId=" + skuId +
                 ", addressId=" + addressId +
                 ", expressNo=" + expressNo +
                 ", shopId=" + shopId +
                 ", orderStatus=" + orderStatus +
                 ", payType=" + payType +
+                ", isDelete=" + isDelete +
                 ", amount=" + amount +
                 ", buyNum=" + buyNum +
                 ", couponNo=" + couponNo +

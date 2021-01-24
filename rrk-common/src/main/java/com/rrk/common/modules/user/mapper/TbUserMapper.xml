@@ -35,5 +35,8 @@
         LEFT JOIN tb_menu m ON roleMenu.menu_id = m.id
         WHERE u.username = #{username}
     </select>
+    <select id="selectByUserId" resultType="com.rrk.common.modules.user.entity.TbUser">
+        select <include refid="Base_Column_List"/> from tb_user where id = #{id}
+    </select>
 
 </mapper>

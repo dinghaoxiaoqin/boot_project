@@ -24,4 +24,9 @@ public class ElasticsearchContants {
      * 联想搜素的索引
      */
     public static final String PREFIX_INDEX = "prefix_index";
+
+    /**
+     * 订单索引
+     */
+    public static final String  ORDER_INDEX = "order_index";
 }

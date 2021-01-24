@@ -1,0 +1,14 @@
+server:
+  port: 7081
+spring:
+  application:
+    name: order-manage-test
+  #配置中心
+  cloud:
+    nacos:
+      config:
+        server-addr: boot-nacos-server:8848
+        group: DEFAULT_GROUP
+        # prefix: ${spring.application.name}
+        file-extension: yml
+        namespace: d558129a-e19d-4879-a6a9-51d4d6f11a60

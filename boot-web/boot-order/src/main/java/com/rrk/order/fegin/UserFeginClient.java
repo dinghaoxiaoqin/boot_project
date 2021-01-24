@@ -1,6 +1,7 @@
 package com.rrk.order.fegin;
 
 import com.rrk.common.constant.FeginConstant;
+import com.rrk.common.modules.user.dto.webdto.RegionDto;
 import com.rrk.common.modules.user.entity.TbUserAddress;
 import com.rrk.order.fegin.fallback.UserFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -18,4 +19,7 @@ public interface UserFeginClient {
      */
     @GetMapping(value = "/api/user/getUserAddressById")
     public TbUserAddress getUserAddressById(@RequestParam(value = "userId") Long userId,@RequestParam(value = "addressId") Long addressId);
+
+    @GetMapping(value = "/api/user/getRegions")
+    public RegionDto getRegions();
 }

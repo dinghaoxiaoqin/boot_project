@@ -2,6 +2,7 @@ package com.rrk.order.fegin.fallback;
 
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.rrk.common.constant.FeginConstant;
+import com.rrk.common.modules.user.dto.webdto.RegionDto;
 import com.rrk.common.modules.user.entity.TbUserAddress;
 import com.rrk.order.fegin.UserFeginClient;
 import feign.hystrix.FallbackFactory;
@@ -28,6 +29,10 @@ public class UserFallbackFactory implements FallbackFactory<UserFeginClient> {
                    tbUserAddress.setId(-2L);
                }
                return tbUserAddress;
+           }
+           @Override
+           public RegionDto getRegions(){
+               return new RegionDto();
            }
        };
     }

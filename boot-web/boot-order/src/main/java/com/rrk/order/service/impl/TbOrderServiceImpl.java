@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.codingapi.txlcn.tc.annotation.DTXPropagation;
-import com.codingapi.txlcn.tc.annotation.LcnTransaction;
+//import com.codingapi.txlcn.tc.annotation.DTXPropagation;
+//import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.rrk.common.constant.OrderTypeEnum;
 import com.rrk.common.constant.RedisConstant;
 import com.rrk.common.dto.PageDto;
@@ -106,7 +106,7 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder> impl
      * @return
      */
 
-    @LcnTransaction(propagation = DTXPropagation.REQUIRED) //事务发起方
+//    @LcnTransaction(propagation = DTXPropagation.REQUIRED) //事务发起方
     @Override
     public Integer addOrder(OrderDto orderDto, Long userId) {
         log.info("下单传入的参数：orderDto->{},userId->{}", orderDto, userId);

@@ -25,6 +25,11 @@ private static final long serialVersionUID=1L;
     private Long id;
 
     /**
+     * 订单号
+     */
+    private String orderNo;
+
+    /**
      * 快递单号
      */
     private String expressNo;
@@ -104,6 +109,15 @@ private static final long serialVersionUID=1L;
         return this;
     }
 
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public OrderFast setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+        return this;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -113,6 +127,7 @@ private static final long serialVersionUID=1L;
     public String toString() {
         return "OrderFast{" +
         "id=" + id +
+        ", orderNo=" + orderNo +
         ", expressNo=" + expressNo +
         ", logisticCode=" + logisticCode +
         ", logisticName=" + logisticName +

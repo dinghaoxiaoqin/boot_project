@@ -2,6 +2,7 @@ package com.rrk.common.modules.product.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.rrk.common.modules.product.dto.webdto.ProductDetailDto;
+import com.rrk.common.modules.product.dto.webdto.SkuDto;
 import com.rrk.common.modules.product.entity.TbSku;
 import io.lettuce.core.dynamic.annotation.Param;
 
@@ -21,4 +22,6 @@ public interface TbSkuMapper extends BaseMapper<TbSku> {
      * @return
      */
     ProductDetailDto getProductDetail(@Param("skuId") Long skuId);
+
+    SkuDto getSkuOne(@Param("id") Long id);
 }

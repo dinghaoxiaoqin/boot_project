@@ -91,6 +91,14 @@
                     <include>**/*.properties</include>
                 </includes>
             </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.yml</include>
+                    <include>**/*.key</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
         </resources>
     </build>
 
