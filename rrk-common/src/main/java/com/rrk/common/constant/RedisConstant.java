@@ -75,4 +75,17 @@ public class RedisConstant {
     public static final String SKU_KEY = "sku_key";
 
     public static final String DISTINICT_KEY = "distinct_key";
+    /**
+     * 秒杀商品大key
+     */
+    public static final String KILL_SKU_KEY = "kill_sku_key";
+    /**
+     * 存放秒杀商品的大key
+     */
+    public static final String KILL_ORDER_KEY = "kill_order_key";
+
+    /**
+     * 秒杀商品队列的key
+     */
+    public static final String KILL_QUEUE_KEY = "kill_queue_key";
 }

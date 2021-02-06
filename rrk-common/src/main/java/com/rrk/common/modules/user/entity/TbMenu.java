@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import io.swagger.annotations.ApiModel;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,7 +17,7 @@ import java.util.Date;
  * @author dinghao
  * @since 2020-02-08
  */
-@ApiModel(value = "菜单")
+
 @TableName("tb_menu")
 public class TbMenu extends Model<TbMenu> implements Serializable {
 

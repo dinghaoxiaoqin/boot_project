@@ -17,11 +17,13 @@
         <result column="is_activity" property="isActivity" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, activity_id, spu_id, sku_id, sku_name, sku_image, sku_desc, activity_price, activity_stock, is_sell, is_activity, create_time, update_time
+        id, activity_id, spu_id, sku_id, sku_name, sku_image, sku_desc, activity_price, activity_stock, is_sell, is_activity, create_time, update_time,start_time,end_time
     </sql>
 
 </mapper>

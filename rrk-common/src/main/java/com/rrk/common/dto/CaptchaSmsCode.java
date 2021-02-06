@@ -1,7 +1,6 @@
 package com.rrk.common.dto;
 
 
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
  * 短信验证的实体
  */
 @Data
-@ApiModel(value = "短信验证的实体")
+
 public class CaptchaSmsCode implements Serializable {
 
     /**

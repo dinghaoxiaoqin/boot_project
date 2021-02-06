@@ -2,6 +2,7 @@ package com.rrk.common.modules.order.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.rrk.common.modules.order.dto.KillOrderVo;
 import com.rrk.common.modules.order.dto.OrderDto;
 import com.rrk.common.modules.product.entity.TbSku;
 
@@ -110,6 +111,19 @@ private static final long serialVersionUID=1L;
         this.skuName = sku.getTitle();
         this.skuImage = sku.getImages().split(",")[0];
         this.skuNum = orderDto.getNum();
+    }
+
+    public OrderSku(TbSku sku, KillOrderVo orderVo, Integer orderStatus) {
+        this.skuId = orderVo.getSkuId();
+        this.salePrice = orderVo.getAmount();
+        this.orderNo = orderVo.getOrderNo();
+        this.skuDesc = sku.getTitle();
+        this.skuName = sku.getTitle();
+        this.skuImage = sku.getImages().split(",")[0];
+        this.skuNum = 1;
+        this.beatPrice = 0D;
+        this.price = sku.getPrice();
+        this.createTime = orderVo.getCreateTime();
     }
 
     public Long getId() {

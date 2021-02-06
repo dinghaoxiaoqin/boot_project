@@ -1,7 +1,7 @@
 package com.rrk.common;
 
 import com.rrk.common.handle.CustomExceptionEnum;
-import io.swagger.annotations.ApiModel;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * 返回数据
  */
-@ApiModel("API返回数据")
+
 @Accessors(chain = true)
 @Data
 public class R<T> implements Serializable {

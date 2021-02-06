@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.rrk.common.constant.OrderContants;
+import com.rrk.common.modules.order.dto.KillOrderVo;
 import com.rrk.common.modules.order.dto.OrderDto;
 import com.rrk.common.modules.product.entity.TbSku;
 
@@ -165,6 +166,31 @@ public class TbOrder extends Model<TbOrder> {
         this.buyNum = orderDto.getNum();
         this.amount = NumberUtil.mul(orderDto.getNum(),sku.getSalePrice());
         this.shopId = 0L;
+
+    }
+
+    public TbOrder(KillOrderVo orderVo, Integer orderStatus) {
+        this.orderNo = orderVo.getOrderNo();
+        this.payType = 0;
+        this.isDelete = 0;
+        this.createTime = orderVo.getCreateTime();
+        this.overTime = orderVo.getOverTime();
+        if (orderStatus == 0) {
+            this.orderStatus = TbOrder.CLOSE_ORDER;
+        } else {
+            this.orderStatus = TbOrder.WAIT_DELIVER_ORDER;
+        }
+        this.userId = orderVo.getUserId();
+        this.shopId = 0L;
+        this.buyNum = 1;
+        this.amount = orderVo.getAmount();
+        this.receiverName = "张三";
+        this.receiverAddress = "湖北省武汉市东西湖区将军路愿景城C区1栋1单元2603";
+        this.receiverProvince = "湖北省";
+        this.receiverCity = "武汉市";
+        this.receiverArea = "东西湖区";
+        this.receiverPhone = "15072435498";
+        this.addressId = 0L;
 
     }
 

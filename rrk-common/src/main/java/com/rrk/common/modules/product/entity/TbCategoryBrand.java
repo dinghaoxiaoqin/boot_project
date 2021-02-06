@@ -18,6 +18,7 @@ public class TbCategoryBrand extends Model<TbCategoryBrand> implements Serializa
 
 private static final long serialVersionUID=1L;
 
+
     /**
      * 商品类目id
      */

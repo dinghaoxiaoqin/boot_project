@@ -88,6 +88,18 @@ private static final long serialVersionUID=1L;
      */
     private Date updateTime;
 
+    /**
+     * 秒杀商品开始时间
+     * @return
+     */
+    private Date startTime;
+
+    /**
+     * 秒杀商品结束时间
+     * @return
+     */
+    private Date endTime;
+
 
     public Long getId() {
         return id;
@@ -206,6 +218,22 @@ private static final long serialVersionUID=1L;
         return this;
     }
 
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -227,6 +255,8 @@ private static final long serialVersionUID=1L;
         ", isActivity=" + isActivity +
         ", createTime=" + createTime +
         ", updateTime=" + updateTime +
+        ", startTime=" + startTime +
+        ", endTime=" + endTime +
         "}";
     }
 }

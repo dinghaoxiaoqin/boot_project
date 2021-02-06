@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import io.swagger.annotations.ApiModel;
+
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,7 +18,7 @@ import java.util.Date;
  * @since 2020-02-08
  */
 
-@ApiModel(value = "用户角色")
+
 @TableName("tb_user_role")
 public class TbUserRole extends Model<TbUserRole> implements Serializable{
 

@@ -123,4 +123,38 @@ public class MqConstatns {
      */
     public static final String CANCEL_ORDER_ROUTING = "cancel_order_routing";
 
+
+    /**
+     * 秒杀订单的延迟队列交换机
+     */
+    public static final String CANCEL_KILL_ORDER_EXCHANGE = "cancel_kill_order_exchange";
+
+    /**
+     * 取消订单的延迟队列
+     */
+    public static final String CANCEL_KILL_ORDER_QUEUE = "cancel_kill_order_queue";
+
+    /**
+     * 取消订单的延迟路由
+     */
+    public static final String CANCEL_KILL_ORDER_ROUTING = "cancel_kill_order_routing";
+
+
+    /**
+     * 死信交换机
+     */
+    public static final String DEAD_EXCHANGE = "dead_exchange";
+
+    /**
+     * 死信队列
+     */
+    public static final String DEAD_QUEUE = "dead_queue";
+
+    /**
+     * 死信路由
+     */
+    public static final String DEAD_ROUTING = "dead_routing";
+
+
+
 }
