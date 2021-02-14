@@ -3,8 +3,10 @@ package com.rrk.order.utils;
 import com.alibaba.fastjson.JSON;
 import com.rrk.common.constant.MqConstatns;
 import com.rrk.common.constant.OrderContants;
+import com.rrk.common.constant.RedisConstant;
 import com.rrk.common.dto.UserActionEntity;
 import com.rrk.common.handle.OrderException;
+import com.rrk.common.modules.order.dto.KillOrderVo;
 import com.rrk.common.modules.order.dto.OrderDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpException;
@@ -15,6 +17,7 @@ import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -33,6 +36,10 @@ public class RabbitMqUtil implements RabbitTemplate.ConfirmCallback,RabbitTempla
     private RabbitTemplate rabbitTemplate;
 
 
+    @Autowired
+    private StringRedisTemplate redisTemplate;
+
+
 
     /**
      * 超时自动取消订单
@@ -49,6 +56,7 @@ public class RabbitMqUtil implements RabbitTemplate.ConfirmCallback,RabbitTempla
             CorrelationData correlationData = new CorrelationData(id);
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             log.info("发送消息的时间：" + format.format(new Date()));
+
             rabbitTemplate.convertAndSend(MqConstatns.CANCEL_ORDER_EXCHANGE, MqConstatns.CANCEL_ORDER_ROUTING, (Object) build, new MessagePostProcessor() {
                 @Override
                 public Message postProcessMessage(Message message) throws AmqpException {
@@ -59,9 +67,41 @@ public class RabbitMqUtil implements RabbitTemplate.ConfirmCallback,RabbitTempla
             },correlationData);
 
         } catch (Exception e){
-            log.error("下单发送到延迟队列消息失败：e->{}，orderDto-》{}",e,orderDto);
+            log.error("下单发送到延迟队列消息失败：e->{}，orderDto->{}",e,orderDto);
             throw new OrderException(566,"下单发送到延迟队列消息失败");
         }
+    }
+
+    /**
+     * 秒杀订单超时支付
+     * @param value
+     */
+    public void killOrderQueue(String orderNo, KillOrderVo value) {
+        log.info("秒杀订单进入延迟队列的参数：orderNo->{},value->{}",orderNo,value);
+        try {
+            Message build = MessageBuilder.withBody(JSON.toJSONString(value).getBytes())
+                    .setContentType(MessageProperties.CONTENT_TYPE_JSON)
+                    .build();
+            //唯一标识id
+            String id = UUID.randomUUID().toString();
+            CorrelationData correlationData = new CorrelationData(id);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            log.info("发送消息的时间：" + format.format(new Date()));
+            rabbitTemplate.convertAndSend(MqConstatns.CANCEL_KILL_ORDER_EXCHANGE, MqConstatns.CANCEL_KILL_ORDER_ROUTING, (Object) build, new MessagePostProcessor() {
+                @Override
+                public Message postProcessMessage(Message message) throws AmqpException {
+                    //延迟半个小时（测试给5分钟）
+                    message.getMessageProperties().setHeader("x-delay", 5*60*1000);
+                    return message;
+                }
+            },correlationData);
+            redisTemplate.opsForHash().put(RedisConstant.KILL_QUEUE_KEY,correlationData.getId(),JSON.toJSONString(value));
+          //  System.out.println("发送消息成功--------------------------------------------------------");
+        } catch (Exception e){
+            log.error("秒杀下单发送到延迟队列消息失败：e->{}，value->{}",e,value);
+            throw new OrderException(566,"秒杀下单发送到延迟队列消息失败");
+        }
+
     }
 
     /**
@@ -124,5 +164,23 @@ public class RabbitMqUtil implements RabbitTemplate.ConfirmCallback,RabbitTempla
         log.info("消息使用的路由键->{}",routingKey);
     }
 
-
+    public void sendDead(Message message) {
+        try {
+            String msgStr = new String(message.getBody(), "UTF-8");
+            KillOrderVo orderVo = JSON.parseObject(msgStr, KillOrderVo.class);
+            Message build = MessageBuilder.withBody(JSON.toJSONString(orderVo).getBytes())
+                    .setContentType(MessageProperties.CONTENT_TYPE_JSON)
+                    .build();
+            //唯一标识id
+            String id = UUID.randomUUID().toString();
+            CorrelationData correlationData = new CorrelationData(id);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            log.info("发送消息的时间：" + format.format(new Date()));
+            rabbitTemplate.convertAndSend(MqConstatns.DEAD_EXCHANGE,MqConstatns.DEAD_ROUTING,build,correlationData);
+            //  System.out.println("发送消息成功--------------------------------------------------------");
+        } catch (Exception e){
+            log.error("秒杀下单发送到延迟队列消息失败：e->{}，message->{}",e,message);
+            throw new OrderException(566,"秒杀下单发送到延迟队列消息失败");
+        }
+    }
 }

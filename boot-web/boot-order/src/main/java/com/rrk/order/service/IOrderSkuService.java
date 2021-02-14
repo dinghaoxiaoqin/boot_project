@@ -1,6 +1,7 @@
 package com.rrk.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.rrk.common.modules.order.dto.KillOrderVo;
 import com.rrk.common.modules.order.entity.OrderSku;
 
 /**
@@ -13,4 +14,9 @@ import com.rrk.common.modules.order.entity.OrderSku;
  */
 public interface IOrderSkuService extends IService<OrderSku> {
 
+    /**
+     * 秒杀订单
+     * @param orderVo
+     */
+    void addKillOrder(Integer orderStatus,KillOrderVo orderVo);
 }

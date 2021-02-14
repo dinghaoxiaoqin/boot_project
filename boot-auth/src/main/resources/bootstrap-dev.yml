@@ -10,5 +10,5 @@ spring:
         server-addr: boot-nacos-server:8848
         group: DEFAULT_GROUP
         #prefix: boot-auth-dev
-        file-extension: yml
-        namespace: 0189e09a-7615-47de-9454-4dfd85d8b220
+        file-extension: yaml
+        namespace: e934d7aa-4b7c-44c1-8552-03a4b6b7c2bc

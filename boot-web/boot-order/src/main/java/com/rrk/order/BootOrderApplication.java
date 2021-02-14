@@ -1,7 +1,6 @@
 package com.rrk.order;
 
 import com.rrk.common.handle.MyExceptionHandler;
-import com.rrk.common.handle.SentinelExceptionHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -18,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @RefreshScope
 @EnableTransactionManagement
 //@EnableDistributedTransaction
-@Import({MyExceptionHandler.class, SentinelExceptionHandler.class})
+@Import({MyExceptionHandler.class})
 public class BootOrderApplication {
 
     public static void main(String[] args) {

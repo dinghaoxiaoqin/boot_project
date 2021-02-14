@@ -65,7 +65,7 @@ public class PayServiceImpl implements PayService {
         AlipayTradeAppPayModel amodel = new AlipayTradeAppPayModel();
 //
         amodel.setSubject(payDto.getSubject());
-        amodel.setBody("测试");
+        amodel.setBody(payDto.getBody());
         //  amodel.setGoodsType(AliPayConfig.GOODSTYPE);
         //amodel.setGoodsType("1");
         amodel.setOutTradeNo(payDto.getOrderNo());
