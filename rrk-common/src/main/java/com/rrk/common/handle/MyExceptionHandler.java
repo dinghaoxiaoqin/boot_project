@@ -53,7 +53,7 @@ public class MyExceptionHandler {
         //logger.error("未知异常！原因是:",e);
         R<Object> r = new R<>();
         r.setCode(CustomExceptionEnum.INTERNAL_SERVER_ERROR.getCode());
-        r.setMsg(e.getMessage());
+        r.setMsg(CustomExceptionEnum.INTERNAL_SERVER_ERROR.message);
         return r;
     }
 

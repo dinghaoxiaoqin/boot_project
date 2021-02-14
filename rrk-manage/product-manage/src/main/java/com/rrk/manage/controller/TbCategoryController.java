@@ -10,8 +10,7 @@ import com.rrk.common.modules.product.dto.CategoryDto;
 import com.rrk.common.modules.product.entity.TbCategory;
 import com.rrk.common.utils.JwtTokenUtil;
 import com.rrk.manage.service.ITbCategoryService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,7 @@ import java.util.stream.Collectors;
  * @author dinghao
  * @since 2020-06-25
  */
-@Api(value = "后台商品管理中心", tags = "后台商品管理中心")
+
 @RestController
 @RequestMapping("/product")
 @CrossOrigin
@@ -50,7 +49,7 @@ public class TbCategoryController {
      * @param parentId
      * @return
      */
-    @ApiOperation(value = "获取商品分类信息", httpMethod = "GET")
+
     @GetMapping(value = "/getCategoryList")
     public R<Object> getCategoryList(HttpServletRequest request,
                                      @RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
@@ -69,7 +68,7 @@ public class TbCategoryController {
     /**
      * 获取所有商品分类数据
      */
-    @ApiOperation(value = "获取所有商品分类数据", httpMethod = "GET")
+
     @GetMapping(value = "/getCategorys")
     public R<Object> getCategorys(HttpServletRequest request) {
         Long userId = JwtTokenUtil.getUserId(request);

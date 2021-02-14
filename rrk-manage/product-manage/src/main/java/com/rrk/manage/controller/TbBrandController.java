@@ -7,7 +7,7 @@ import com.rrk.common.modules.product.dto.BrandCategoryDto;
 import com.rrk.common.modules.product.dto.BrandDto;
 import com.rrk.common.modules.product.entity.TbBrand;
 import com.rrk.manage.service.ITbBrandService;
-import io.swagger.annotations.Api;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +21,7 @@ import java.util.List;
  * @author dinghao
  * @since 2020-06-25
  */
-@Api(value = "后台商品管理", tags = "后台商品管理中心")
+
 @RestController
 @RequestMapping("/product")
 public class TbBrandController {

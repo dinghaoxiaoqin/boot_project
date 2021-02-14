@@ -1,14 +1,3 @@
-server:
-  port: 3080
 spring:
-  application:
-    name: product-manage-dev
-    #配置中心
-  cloud:
-    nacos:
-      config:
-        server-addr: boot-nacos-server:8848
-        group: DEFAULT_GROUP
-        # prefix: ${spring.application.name}
-        file-extension: yml
-        namespace: 0189e09a-7615-47de-9454-4dfd85d8b220
+  profiles:
+    active: dev
