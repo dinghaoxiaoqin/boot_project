@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.rrk.common.modules.user.dto.webdto.RegionDto;
 import com.rrk.common.modules.user.entity.TbRegion;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -19,4 +21,6 @@ public interface ITbRegionService extends IService<TbRegion> {
      * @return
      */
     RegionDto getRegionList();
+
+    List<TbRegion> findProvinceList();
 }

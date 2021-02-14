@@ -10,6 +10,8 @@ import com.rrk.common.modules.user.dto.webdto.DistrictDto;
 import com.rrk.common.modules.user.dto.webdto.ProvinceDto;
 import com.rrk.common.modules.user.dto.webdto.RegionDto;
 import com.rrk.common.modules.user.entity.TbRegion;
+import com.rrk.order.manage.config.dynamicDataSource.DBTypeEnum;
+import com.rrk.order.manage.config.dynamicDataSource.DataSource;
 import com.rrk.order.manage.service.ITbRegionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,7 @@ public class TbRegionServiceImpl extends ServiceImpl<TbRegionMapper, TbRegion> i
     @Autowired
     private StringRedisTemplate redisTemplate;
 
+    @DataSource(DBTypeEnum.boot)
     @Override
     public RegionDto getRegionList() {
         //1.获取省的信息
@@ -51,6 +54,12 @@ public class TbRegionServiceImpl extends ServiceImpl<TbRegionMapper, TbRegion> i
         //4,数据处理
         RegionDto regionDto = getHandle(provinceList, cityList, districtList);
         return regionDto;
+    }
+
+    @DataSource(DBTypeEnum.boot)
+    @Override
+    public List<TbRegion> findProvinceList() {
+        return regionService.list(new QueryWrapper<TbRegion>().eq("level", 1));
     }
 
     /**

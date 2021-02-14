@@ -174,7 +174,8 @@ public class OrderController {
      */
      @GetMapping(value = "/getProvinceList")
     public R<Object> getProvinceList(){
-         List<TbRegion> list = regionService.list(new QueryWrapper<TbRegion>().eq("level", 1));
+         List<TbRegion> list =  regionService.findProvinceList();
+        // List<TbRegion> list = regionService.list(new QueryWrapper<TbRegion>().eq("level", 1));
          //TbUser user = userService.getOne(new QueryWrapper<TbUser>().eq("user_id", detailDto.getUserId()));
 
          return R.ok(200,"操作成功",list);
