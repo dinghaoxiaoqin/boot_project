@@ -29,10 +29,6 @@ public class UploadController {
     @PostMapping(value = "/addImage")
     public R<Object> addImage(MultipartHttpServletRequest multiReq) {
         MultipartFile file = multiReq.getFile("file");
-       // String[] picsPath = new String[file.length];
-//        if (uploadFile.length <= 0) {
-//            return R.fail("上传失败");
-//        }
         Map<String,Object> imagePath = uploadFileService.addImage(file);
         return R.ok(200,"上传成功",imagePath);
     }

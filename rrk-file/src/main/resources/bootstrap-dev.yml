@@ -1,0 +1,14 @@
+server:
+  port: 1080
+spring:
+  application:
+    name: boot-file
+    #配置中心
+  cloud:
+    nacos:
+      config:
+        server-addr: boot-nacos-server:8848
+        group: DEFAULT_GROUP
+        # prefix: ${spring.application.name}
+        file-extension: yaml
+        namespace: e934d7aa-4b7c-44c1-8552-03a4b6b7c2bc
