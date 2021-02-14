@@ -1,0 +1,14 @@
+server:
+  port: 7080
+spring:
+  application:
+    name: employee-manage
+    #配置中心
+  cloud:
+    nacos:
+      config:
+        server-addr: boot-nacos-server:8848
+        group: DEFAULT_GROUP
+        # prefix: ${spring.application.name}
+        file-extension: yaml
+        namespace: 178e6375-6c43-43c4-a863-8f28bfb5d460
