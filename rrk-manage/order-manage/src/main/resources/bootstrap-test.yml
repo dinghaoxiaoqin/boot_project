@@ -2,7 +2,7 @@ server:
   port: 7081
 spring:
   application:
-    name: order-manage-test
+    name: order-manage
   #配置中心
   cloud:
     nacos:
@@ -10,5 +10,5 @@ spring:
         server-addr: boot-nacos-server:8848
         group: DEFAULT_GROUP
         # prefix: ${spring.application.name}
-        file-extension: yml
-        namespace: d558129a-e19d-4879-a6a9-51d4d6f11a60
+        file-extension: yaml
+        namespace: 178e6375-6c43-43c4-a863-8f28bfb5d460
