@@ -1,7 +1,6 @@
 package com.rrk.order.manage.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rrk.common.constant.RedisConstant;
@@ -31,7 +30,6 @@ import java.util.stream.Collectors;
  * @since 2020-09-01
  */
 @Service
-@DS("boot")
 @Transactional(rollbackFor = Exception.class)
 @Slf4j
 public class TbRegionServiceImpl extends ServiceImpl<TbRegionMapper, TbRegion> implements ITbRegionService {

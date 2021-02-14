@@ -13,5 +13,5 @@ import com.rrk.common.modules.user.entity.TbUser;
  */
 public interface ITbUserService extends IService<TbUser> {
 
-
+    TbUser findUserByUserId(Long userId);
 }

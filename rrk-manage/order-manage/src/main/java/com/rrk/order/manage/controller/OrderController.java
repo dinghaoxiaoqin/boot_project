@@ -89,9 +89,10 @@ public class OrderController {
         List<OrderFastDto> list = new ArrayList<>();
         //2，获取发货人的数据
         for (TbOrder order : orders) {
-            TbUser user = userService.getOne(new QueryWrapper<TbUser>().eq("user_id", order.getUserId()));
+            TbUser user =  userService.findUserByUserId(order.getUserId());
             //3,获取发货人的地址
-            TbUserAddress userAddress = userAddressService.getOne(new QueryWrapper<TbUserAddress>().eq("id", order.getAddressId()));
+            TbUserAddress userAddress = userAddressService.getAddressById(order.getAddressId());
+
             OrderFastDto orderFastDto = new OrderFastDto(order, user, userAddress);
             list.add(orderFastDto);
         }
@@ -120,9 +121,9 @@ public class OrderController {
     @GetMapping(value = "/getOrderDetail")
     public R<Object> getOrderDetail(@RequestParam(value = "orderId") Long orderId) {
         OrderDetailDto detailDto = orderService.getOrderDetail(orderId);
-        TbUser user = userService.getOne(new QueryWrapper<TbUser>().eq("user_id", detailDto.getUserId()));
+        TbUser user =  userService.findUserByUserId(detailDto.getUserId());
         //3,获取发货人的地址
-        TbUserAddress userAddress = userAddressService.getOne(new QueryWrapper<TbUserAddress>().eq("id", detailDto.getAddressId()));
+        TbUserAddress userAddress = userAddressService.getAddressById(detailDto.getAddressId());
         detailDto.setReceiverAddress(userAddress.getUserAddress());
         detailDto.setReceiverName(user.getNickName());
         detailDto.setReceiverPhone(user.getPhone());
